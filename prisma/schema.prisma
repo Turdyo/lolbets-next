@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+model DiscordUser {
+  discordId String  @id
+  avatar    String?
+  nb_points Int?
+}
+
+model League {
+  id        Int     @id
+  image_url String?
+  name      String
+  slug      String
+  Match     Match[]
+}
+
+model Match {
+  id              Int       @id
+  begin_at        DateTime?
+  end_at          DateTime?
+  name            String
+  slug            String
+  number_of_games Int
+  scheduled_at    DateTime
+  status          Status
+  games           Game[]
+  league          League?   @relation(fields: [league_id], references: [id])
+  league_id       Int?
+  winner_id       Int?
+  opponents       Team[]
+}
+
+model Game {
+  id       Int      @id
+  position Int
+  status   Status
+  begin_at DateTime?
+  end_at   DateTime?
+  complete Boolean
+  finished Boolean
+  length   Int?
+  winner   Team?    @relation(fields: [team_id], references: [id])
+  team_id  Int?
+  match    Match?   @relation(fields: [match_id], references: [id])
+  match_id Int?
+}
+
+model Team {
+  id        Int     @id
+  acronym   String
+  image_url String
+  location  String?
+  name      String
+  slug      String
+  game      Game[]
+  Match     Match[]
+}
+
+enum Status {
+  not_started
+  running
+  finished
+  canceled
+}

@@ -18,7 +18,7 @@ model League {
   image_url String?
   name      String
   slug      String
-  Match     Match[]
+  match     Match[]
 }
 
 model Match {
@@ -31,8 +31,8 @@ model Match {
   scheduled_at    DateTime
   status          Status
   games           Game[]
-  league          League?   @relation(fields: [league_id], references: [id])
-  league_id       Int?
+  league          League   @relation(fields: [league_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  league_id       Int
   winner_id       Int?
   opponents       Team[]
 }
@@ -46,10 +46,10 @@ model Game {
   complete Boolean
   finished Boolean
   length   Int?
-  winner   Team?    @relation(fields: [team_id], references: [id])
-  team_id  Int?
-  match    Match?   @relation(fields: [match_id], references: [id])
-  match_id Int?
+  winner   Team?    @relation(fields: [winner_id], references: [id])
+  winner_id  Int?
+  match    Match   @relation(fields: [match_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  match_id Int
 }
 
 model Team {
@@ -60,7 +60,7 @@ model Team {
   name      String
   slug      String
   game      Game[]
-  Match     Match[]
+  match     Match[]
 }
 
 enum Status {

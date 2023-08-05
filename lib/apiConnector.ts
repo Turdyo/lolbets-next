@@ -15,10 +15,7 @@ export interface MatchResponse {
     modified_at: string | null
     name: string
     number_of_games: number
-    opponents: {
-        opponent: TeamResponse
-        type: string
-    }[]
+    opponents: OpponentResponse[]
     original_scheduled_at: string
     rescheduled: boolean
     results: {
@@ -40,7 +37,12 @@ export interface MatchResponse {
     winner_type: string
 }
 
-interface GameResponse {
+export interface OpponentResponse {
+    opponent: TeamResponse
+    type: string
+}
+
+export interface GameResponse {
     begin_at: string | null
     complete: boolean
     end_at: string | null
@@ -58,7 +60,7 @@ interface GameResponse {
     winner_type: string
 }
 
-interface LeagueResponse {
+export interface LeagueResponse {
     id: number
     image_url: string | null
     modified_at: string
@@ -68,17 +70,17 @@ interface LeagueResponse {
 }
 
 interface TeamResponse {
-    acronym: string
+    acronym: string | null
     id: number
     image_url: string
-    location: string
+    location: string | null
     modified_at: string
     name: string
     slug: string
 }
 
 export async function fetchMatches(time: "past" | "upcoming" | "running"): Promise<MatchResponse[]> {
-    return (await fetch(`https://api.pandascore.co/lol/matches/${time}`, {
+    return (await fetch(`https://api.pandascore.co/lol/matches/${time}?per_page=100`, {
         method: "GET",
         headers: {
             Authorization: process.env.PANDASCORE_API_KEY ?? ""

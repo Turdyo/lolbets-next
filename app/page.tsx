@@ -1,3 +1,4 @@
+import { ClickableSection } from "@/components/ui/ClickableSection"
 import { db } from "@/prisma"
 
 export default async function Home() {
@@ -15,11 +16,11 @@ export default async function Home() {
   })
 
   return (
-    <div className="flex flex-col gap-6 m-10">
+    <div className="flex flex-wrap gap-6 m-20">
       {response.map((match, index) => <>
-        <div className="bg-[#1a2231] p-4 rounded-lg border border-gray-600 border-opacity-60 hover:border-opacity-100 transition-all cursor-pointer">
+        <ClickableSection key={index} href="/" className="w-min whitespace-nowrap">
           {match.name}
-        </div>
+        </ClickableSection>
       </>)}
     </div>
   )

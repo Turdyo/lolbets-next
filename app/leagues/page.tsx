@@ -17,9 +17,7 @@ export default async function Leagues() {
                 select: {
                     match: {
                         where: {
-                            end_at: {
-                                not: null
-                            }
+                            status: 'not_started'
                         }
                     }
                 }
@@ -27,14 +25,16 @@ export default async function Leagues() {
         }
     })
 
-    return <div className="flex m-20 gap-6 flex-wrap">
-        {leagues.map((league, index) => <ClickableSection key={index} href="/" className={`p-0 py-1 px-6 flex items-center w-max h-24`}>
-            <Image alt="icon" src={league.image_url as string} width={50} height={50} />
-            <div className="pl-6 flex flex-col">
-                <span className="font-bold text-2xl">{league.name}</span>
-                <span className="whitespace-nowrap">{league._count.match} matchs à venir</span>
-            </div>
-        </ClickableSection>
+    return <div className="flex m-20 gap-6 flex-wrap justify-center">
+        {leagues.map((league, index) => <>
+            <ClickableSection key={index} href={`/leagues/${league.name.toLowerCase()}`} className={`p-0 py-1 px-6 flex items-center w-80 h-36`}>
+                <Image alt="icon" src={league.image_url as string} width={100} height={100} />
+                <div className="pl-6 flex flex-col">
+                    <span className="font-bold text-2xl text-custom-yellow">{league.name}</span>
+                    <span className="whitespace-nowrap">{league._count.match} matchs à venir</span>
+                </div>
+            </ClickableSection>
+        </>
 
         )}
     </div>

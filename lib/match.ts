@@ -17,6 +17,7 @@ export async function createOrUpdateMatches(matches: MatchResponse[]) {
                 scheduled_at: match.scheduled_at,
                 status: match.status,
                 league_id: match.league_id,
+                winner_id: match.winner_id,
                 opponents: {
                     connect: match.opponents.map(opponent => ({
                         id: opponent.opponent.id
@@ -33,6 +34,7 @@ export async function createOrUpdateMatches(matches: MatchResponse[]) {
                 scheduled_at: match.scheduled_at,
                 status: match.status,
                 league_id: match.league_id,
+                winner_id: match.winner_id,
                 opponents: {
                     connect: match.opponents.map(opponent => ({
                         id: opponent.opponent.id

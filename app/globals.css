@@ -25,5 +25,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-  color: #e5e7eb
+  color: #e5e7eb;
+}
+* {
+  box-sizing: border-box;
 }

@@ -10,8 +10,7 @@ export default async function Home() {
     },
     include: {
       opponents: true,
-      games: true,
-      league: true
+      games: true
     }
   })
 

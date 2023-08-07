@@ -14,7 +14,7 @@ export async function GET() {
     const matches = [...pastMatches, ...upcomingMatches, ...runningMatches].filter(match => {
         return match.league.name in LeaguesTracked
     })
-    
+
     const leagues = matches.map(match => match.league)
     const teams = matches.flatMap(match => match.opponents)
     const games = matches.flatMap(match => match.games)
@@ -27,5 +27,5 @@ export async function GET() {
     await createOrUpdateMatches(matches)
     await createOrUpdateGames(games)
 
-    return NextResponse.json({response: "done"})
+    return NextResponse.json({ response: "done" })
 }

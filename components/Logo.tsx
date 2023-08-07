@@ -1,0 +1,14 @@
+import Image from "next/image";
+import Link from "next/link";
+import logo from '@/public/lolbets-logo.png'
+import { PropsWithClassName } from "@/lib/types/common";
+import { twMerge } from "tailwind-merge";
+
+export function Logo({ className }: PropsWithClassName) {
+    return <>
+        <Link className={twMerge('flex items-center gap-6 m-4 self-center cursor-pointer', className)} href={"/"}>
+            <Image src={logo} alt="Logo" width={50} />
+            <h1 className='text-4xl font-bold'>LOLBETS</h1>
+        </Link>
+    </>
+}

@@ -4,6 +4,9 @@ const nextConfig = {
         remotePatterns: [
             {
                 hostname: "cdn.pandascore.co"
+            },
+            {
+                hostname: "cdn.discordapp.com"
             }
         ]
     }

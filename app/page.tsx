@@ -1,11 +1,11 @@
-import { ClickableSection } from "@/components/ui/ClickableSection"
+import { Match } from "@/components/Match"
 import { db } from "@/prisma"
 
 export default async function Home() {
-  const response = await db.match.findMany({
+  const match = await db.match.findFirst({
     where: {
-      league: {
-        name: "LFL"
+      status: {
+        notIn: ["canceled", "finished", "running"]
       }
     },
     include: {
@@ -14,13 +14,9 @@ export default async function Home() {
     }
   })
 
-  return (
-    <div className="flex flex-wrap gap-6 m-20">
-      {response.map((match, index) => <>
-        <ClickableSection key={index} href="/" className="w-min whitespace-nowrap">
-          {match.name}
-        </ClickableSection>
-      </>)}
-    </div>
-  )
+  return <div className="p-20 flex flex-col gap-4">
+    <span className="text-4xl text-custom-yellow font-bold">Match of the day</span>
+    <Match match={match!}/>
+  </div>
+
 }

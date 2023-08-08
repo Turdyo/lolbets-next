@@ -7,12 +7,6 @@ datasource db {
   url      = env("DB_URL")
 }
 
-model DiscordUser {
-  discordId String  @id
-  avatar    String?
-  nb_points Int?
-}
-
 model League {
   id        Int     @id
   image_url String?
@@ -22,20 +16,23 @@ model League {
 }
 
 model Match {
-  id              Int       @id
-  begin_at        DateTime?
-  end_at          DateTime?
-  name            String
-  slug            String
-  number_of_games Int
-  scheduled_at    DateTime
-  status          Status
-  games           Game[]
-  league          League?   @relation(fields: [league_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  league_id       Int?
-  winner          Team?     @relation(name: "winner", fields: [winner_id], references: [id])
-  winner_id       Int?
-  opponents       Team[]
+  id               Int       @id
+  begin_at         DateTime?
+  end_at           DateTime?
+  name             String
+  slug             String
+  number_of_games  Int
+  scheduled_at     DateTime
+  status           Status
+  bets_distributed Boolean   @default(false)
+
+  games     Game[]
+  league    League? @relation(fields: [league_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  league_id Int?
+  winner    Team?   @relation(name: "winner", fields: [winner_id], references: [id])
+  winner_id Int?
+  opponents Team[]
+  bets      Bet[]
 }
 
 model Game {
@@ -61,12 +58,76 @@ model Team {
   slug      String
   match     Match[]
   match_won Match[] @relation(name: "winner")
+  bets      Bet[]
 }
-
 
 enum Status {
   not_started
   running
   finished
   canceled
+}
+
+model Bet {
+  id     String @id @default(cuid())
+  amount Int
+
+  match   Match  @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  matchId Int
+  team    Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId  Int
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+}
+
+// NEXTAUTH
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  discordId     String?   @unique
+  points        Int       @default(500)
+
+  bets Bet[]
+
+  accounts Account[]
+  sessions Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }

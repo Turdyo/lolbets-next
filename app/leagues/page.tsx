@@ -30,7 +30,7 @@ export default async function Leagues() {
             <ClickableSection key={index} href={`/leagues/${league.name.toLowerCase()}`} className={`p-0 py-1 px-6 flex items-center w-80 h-36`}>
                 <Image alt="icon" src={league.image_url as string} width={100} height={100} />
                 <div className="pl-6 flex flex-col">
-                    <span className="font-bold text-2xl text-custom-yellow">{league.name}</span>
+                    <span className="font-bold text-2xl text-custom-yellow-100">{league.name}</span>
                     <span className="whitespace-nowrap">{league._count.match} matchs à venir</span>
                 </div>
             </ClickableSection>

@@ -3,7 +3,6 @@ import DiscordProvider, { DiscordProfile } from "next-auth/providers/discord";
 import 'dotenv/config'
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { db } from "@/prisma";
-import { User } from "@prisma/client";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -12,7 +11,7 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.DISCORD_CLIENT_ID!,
       clientSecret: process.env.DISCORD_CLIENT_SECRET!,
       authorization: "https://discord.com/api/oauth2/authorize?scope=identify",
-      profile(profile: DiscordProfile & { global_name: string }) {
+      profile(profile: DiscordProfile) {
         if (profile.avatar === null) {
           const defaultAvatarNumber = Math.floor(Math.random() * 6);
           profile.image_url = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`
@@ -34,16 +33,14 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     createUser({ user }) {
-      const discordUser = user as unknown as User
-      console.log("user created", discordUser)
+      console.log("user created", user)
     },
     signIn: async ({ profile }) => {
-      const newData = profile as unknown as User
       await db.user.update({
         where: {
-          discordId: newData.discordId!
+          discordId: profile?.discordId
         },
-        data: newData
+        data: profile!
       })
     }
   },

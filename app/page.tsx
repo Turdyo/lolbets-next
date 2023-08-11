@@ -26,6 +26,8 @@ export default async function Home() {
   return <div className="p-14 flex flex-col gap-4 h-full overflow-auto">
     <span className="text-4xl text-custom-yellow-100 font-bold">Matches of the day</span>
     <Matches matchesOrdered={matchesOrdered} mode="league" className="overflow-visible"/>
+
+    <div className="text-4xl text-custom-yellow-100 font-bold">HOMEPAGE IS WIP</div>
   </div>
 
 }

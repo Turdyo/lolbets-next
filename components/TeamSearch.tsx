@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ClickableSection } from "./ui/ClickableSection";
 import { twMerge } from "tailwind-merge";
 import { PropsWithClassName } from "@/lib/types/common";
+import { useRouter } from "next/navigation";
 
 interface Team {
     name: string;
@@ -21,6 +22,7 @@ export function TeamSearch({ teams, className }: PropsWithClassName<TeamSearchPr
     const [results, setResults] = useState<Team[]>([])
     const [searchInput, setSearchInput] = useState<string>("")
     const [isFocused, setIsFocused] = useState<boolean>(false)
+    const router = useRouter()
 
     useEffect(() => {
         if (searchInput === "") {
@@ -45,8 +47,13 @@ export function TeamSearch({ teams, className }: PropsWithClassName<TeamSearchPr
                     await new Promise(r => setTimeout(r, 100));
                     setIsFocused(false)
                 }}
+                onKeyDown={event => {
+                    if (event.code === "Enter") {
+                        router.push(`/team/${searchInput}`)
+                    }
+                }}
             />
-            {isFocused && <div className="absolute z-10 top-[49px] flex flex-col w-full border border-gray-600 border-t-0 border-opacity-60 shadow-md rounded-b-lg max-h-80 overflow-scroll">
+            {isFocused && <div className="absolute z-10 top-[49px] flex flex-col w-full border border-gray-600 border-t-0 border-opacity-60 shadow-md rounded-b-lg max-h-80 overflow-auto">
                 {results.map((team, index) => <ClickableSection
                     key={index} href={`/team/${team.name}`}
                     className="p-[4px] bg-custom-blue-200 border-none rounded-none block hover:bg-custom-blue-100 hover:text-custom-white-100 transition-none"

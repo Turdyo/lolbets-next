@@ -19,11 +19,7 @@ export async function GET() {
     const teams = matches.flatMap(match => match.opponents)
     const games = matches.flatMap(match => match.games)
 
-    await Promise.all([
-        createOrUpdateTeams(teams),
-        createOrUpdateLeagues(leagues)
-    ])
-
+    await Promise.all([createOrUpdateTeams(teams), createOrUpdateLeagues(leagues)])
     await createOrUpdateMatches(matches)
     await createOrUpdateGames(games)
 

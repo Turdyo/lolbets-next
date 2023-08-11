@@ -5,7 +5,7 @@ import dayjs from "dayjs"
 import "dayjs/locale/fr"
 import { getTeamWinrates } from "@/lib/league"
 import { TeamWinrate } from "@/components/TeamWinrate"
-import { TeamMatchHisto } from "@/components/TeamMatchHisto"
+import { Matches } from "@/components/Matches"
 
 dayjs.locale('fr')
 
@@ -50,15 +50,15 @@ export default async function Team({ params }: { params: { team: string } }) {
     const matchesOrdered = getMatchesOrdered(team.match)
 
     return (
-        <div className="flex justify-between h-full overflow-scroll">
-            <div className="flex flex-col gap-4">
-                <div className="flex gap-4 h-min items-center">
+        <div className="flex justify-between h-full">
+            <div className="flex flex-col gap-4 h-min">
+                <div className="flex gap-4 items-center">
                     <Image src={team.image_url} width={70} height={70} alt={team.name} />
                     <h2 className="text-lg font-bold text-custom-yellow-100">{team.name}</h2>
                 </div>
                 <TeamWinrate data={teamWinrates} />
             </div>
-            <TeamMatchHisto matchesOrdered={matchesOrdered} team_id={team.id} />
+            <Matches matchesOrdered={matchesOrdered} mode="team" team_id={team.id} className="basis-3/5 p-2 h-full overflow-auto" />
         </div>
     )
 }

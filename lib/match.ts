@@ -36,6 +36,7 @@ export async function createOrUpdateMatches(matches: MatchResponse[]) {
                 league_id: match.league_id,
                 winner_id: match.winner_id,
                 opponents: {
+                    set: [],
                     connect: match.opponents.map(opponent => ({
                         id: opponent.opponent.id
                     }))

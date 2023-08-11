@@ -22,7 +22,7 @@ export default async function RootLayout({
         <Provider>
           <div className='flex h-screen'>
             <Sidebar />
-            <div className='bg-custom-blue-100 w-[calc(100vw-18rem)] '>
+            <div className='bg-custom-blue-100 w-[calc(100vw-18rem)]'>
               {children}
             </div>
           </div>

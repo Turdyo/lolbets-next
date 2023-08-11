@@ -1,10 +1,11 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import DiscordProvider, { DiscordProfile } from "next-auth/providers/discord";
 import 'dotenv/config'
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/prisma";
 
 export const authOptions: NextAuthOptions = {
+  // @ts-ignore
   adapter: PrismaAdapter(db),
   providers: [
     DiscordProvider({

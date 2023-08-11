@@ -12,7 +12,7 @@ interface MatchProps {
     },
 }
 
-export function Match({
+export function MatchComponent({
     className,
     match
 }: PropsWithClassName<MatchProps>) {
@@ -23,7 +23,7 @@ export function Match({
     const isRunning = match.status === Status.running
 
     return <div className={twMerge(
-        "p-2 w-full flex justify-between items-center border border-gray-700 rounded-lg whitespace-nowrap shadow-lg h-28",
+        "p-1 w-full flex justify-between items-center border border-gray-700 rounded-lg whitespace-nowrap shadow-lg h-24",
         className
     )}>
         <Image alt={team1?.name ?? "TBD"} src={team1?.image_url ?? tbdImage} height={50} width={50} className={!isFinished || match.winner_id === team1?.id ? "" : "opacity-30"} />
@@ -35,7 +35,7 @@ export function Match({
             <div className="flex justify-between w-full">
                 <div></div>
                 {
-                    isFinished && <div className="font-extrabold text-3xl text-custom-white-200">
+                    isFinished && <div className="font-extrabold text-2xl text-custom-white-200">
                         <span className={match.winner_id === team1?.id ? "text-custom-yellow-100" : "text-custom-white-200"}>{match.games.filter(game => game.winner_id === team1?.id).length}</span> - <span className={match.winner_id === team2?.id ? "text-custom-yellow-100" : "text-custom-white-200"}>{match.games.filter(game => game.winner_id === team2?.id).length}</span>
                     </div>
                 }

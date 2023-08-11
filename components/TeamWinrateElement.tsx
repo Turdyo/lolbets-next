@@ -39,7 +39,7 @@ export function TeamWinrateElement({
             <span className="font-semibold">{winrate}</span>%
             </span>
             <span className="text-xs">
-                {nbMatches} game
+                {nbMatches} match{nbMatches > 1 && <>es</>}
             </span>
         </div>
     </div>

@@ -13,7 +13,7 @@ export default async function Leaderboard() {
 
     const session = await getServerSession(authOptions)
 
-    return <div className="p-14 h-full flex flex-col gap-6 overflow-scroll">
+    return <div className="p-14 h-full flex flex-col gap-6 overflow-auto">
         {users.map((user, index) => <div key={index} className={twMerge(
             "border w-full border-gray-700 rounded-lg shadow-md h-20 flex items-center justify-between p-6",
             session?.user?.name === user.name ? "bg-custom-blue-200 border-gray-600" : ""

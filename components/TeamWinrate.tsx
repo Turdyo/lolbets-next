@@ -22,7 +22,7 @@ export function TeamWinrate({
             className
         )}>
         {data.length !== 0 && data.map((line, index) => {
-            const games = line.matches.flatMap(match => match.games)
+            const games = line.matches.flatMap(match => match.games).filter(game => game.status === 'finished')
             const avgLength = games.reduce((total, game) => total + game.length!, 0) / games.length
             const nbMatches = line.matches.length
             const winrate = line.matches.reduce((total, match) => match.winner_id !== line.opponent.id ? total + 1 : total, 0)

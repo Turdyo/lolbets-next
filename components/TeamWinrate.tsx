@@ -25,7 +25,7 @@ export function TeamWinrate({
             const games = line.matches.flatMap(match => match.games).filter(game => game.status === 'finished')
             const avgLength = games.reduce((total, game) => total + game.length!, 0) / games.length
             const nbMatches = line.matches.length
-            const winrate = line.matches.reduce((total, match) => match.winner_id !== line.opponent.id ? total + 1 : total, 0)
+            const winrate = line.matches.reduce((total, match) => match.winner_id !== line.opponent.id ? total + 1 : total, 0) / nbMatches
             return <TeamWinrateElement opponent={line.opponent} avgLength={avgLength} nbMatches={nbMatches} winrate={winrate * 100} key={index} />
         })}
     </div>

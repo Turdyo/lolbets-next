@@ -1,6 +1,6 @@
 import { LeagueResponse } from "@/lib/apiConnector";
 import { db } from "@/prisma";
-import { Match, Team } from "@prisma/client";
+import { Team } from "@prisma/client";
 
 export async function createOrUpdateLeagues(leagues: LeagueResponse[]) {
     return await db.$transaction(
@@ -46,8 +46,10 @@ export async function getTeamWinrates(team_id: number) {
         }
     })
 
-    const opponents = matches.filter(match => match.status === "finished").map(match => match.opponents.filter(team => team.id !== team_id).at(0))
-    const uniqueOpponents = opponents.reduce((unique: Team[], opponent) => opponent ? unique.includes(opponent) ? unique : [...unique, opponent] : unique, [])
+    const finishedMatches = matches.filter(match => match.status === "finished")
+    const opponents = finishedMatches.map(match => match.opponents.filter(team => team.id !== team_id).at(0)!)
+    const uniqueOpponents = opponents.reduce((unique: Team[], opponent) => unique.map(team => team.id).includes(opponent.id) ? unique : [...unique, opponent], [])
+
     return uniqueOpponents
         .map(opponent => ({
             opponent: opponent,

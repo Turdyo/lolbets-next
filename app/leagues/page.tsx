@@ -2,6 +2,8 @@ import { ClickableSection } from "@/components/ui/ClickableSection"
 import { db } from "@/prisma"
 import Image from "next/image"
 
+export const dynamic = 'force-dynamic'
+
 export default async function Leagues() {
     const leagues = await db.league.findMany({
         include: {

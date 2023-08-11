@@ -20,13 +20,13 @@ export function getMatchesOrdered<T>(matches: (Match & T)[]) {
 
 export function getClosestDay(matchesOrdered: MatchesOrdered, day: Date) {
 
-    const futureMatches = matchesOrdered.filter(matchOrdered => dayjs(matchOrdered.date).isAfter(day))
+    const futureOrTodayMatches = matchesOrdered.filter(matchOrdered => dayjs(matchOrdered.date).isAfter(day) || dayjs(matchOrdered.date).isSame(day, 'day'))
 
-    if (futureMatches.length === 0) {
+    if (futureOrTodayMatches.length === 0) {
         return -1
     }
 
-    const closestDate = futureMatches.reduce((closest, match) => {
+    const closestDate = futureOrTodayMatches.reduce((closest, match) => {
         const testDiff = Math.abs(dayjs(day).diff(match.date, 'day'))
         const closestDiff = Math.abs(dayjs(day).diff(closest.date, 'day'))
         return testDiff < closestDiff ? match : closest

@@ -15,12 +15,12 @@ export function LoginButton() {
                 <span className="font-bold text-custom-white-100">{session.data.user?.name}</span>
 
             </div>
-            <Button onClick={() => signOut()}>Sign out</Button>
+            <Button onClick={() => signOut()} className="border-custom-purple-text text-custom-purple-text">Sign out</Button>
         </div>
 
     } else {
         return <div className="p-10 self-center">
-            <Button onClick={() => signIn("discord")}>Login via discord</Button>
+            <Button onClick={() => signIn("discord")} className="border-custom-purple-text text-custom-purple-text">Login via discord</Button>
         </div>
     }
 

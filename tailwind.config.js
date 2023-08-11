@@ -23,7 +23,8 @@ module.exports = {
         },
         'custom-purple': { 
           100: '#49249b', 
-          200: '#362472' 
+          200: '#362472',
+          'text': '#bf94ff'
         },
         'custom-blue': {
           100: '#1b202b',

@@ -56,8 +56,8 @@ export function Matches(props: PropsWithClassName<MatchesProps>) {
                                 : <>{dayjs(matchOrdered.date).format("dddd D MMMM")}</>
                         }
                         {
-                            isClosest && <div className="flex gap-2 text-custom-yellow-100">
-                                <ArrowUp className="animate-bounce" />
+                            isClosest && <div className="flex gap-2 text-custom-yellow-100 items-center">
+                                <ArrowUp className="animate-bounce" size={20} />
                                 Résultats passés
                             </div>
                         }

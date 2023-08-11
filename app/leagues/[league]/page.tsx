@@ -2,6 +2,8 @@ import { Matches } from "@/components/Matches"
 import { getMatchesOrdered } from "@/lib/utils"
 import { db } from "@/prisma"
 
+export const dynamic = 'force-dynamic'
+
 export default async function League({ params }: { params: { league: string } }) {
     const league = await db.league.findFirst({
         where: {

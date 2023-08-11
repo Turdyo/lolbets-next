@@ -4,6 +4,8 @@ import Image from "next/image"
 import { authOptions } from "../api/auth/[...nextauth]/route"
 import { twMerge } from "tailwind-merge"
 
+export const dynamic = 'force-dynamic'
+
 export default async function Leaderboard() {
     const users = await db.user.findMany({
         orderBy: {

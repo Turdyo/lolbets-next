@@ -2,6 +2,8 @@ import { TeamSearch } from "@/components/TeamSearch";
 import { db } from "@/prisma";
 import { ReactNode } from "react";
 
+export const dynamic = 'force-dynamic'
+
 export default async function Layout({ children }: { children: ReactNode }) {
     const teams = await db.team.findMany({
         select: {

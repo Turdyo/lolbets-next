@@ -9,6 +9,8 @@ import { Matches } from "@/components/Matches"
 
 dayjs.locale('fr')
 
+export const dynamic = 'force-dynamic'
+
 export default async function Team({ params }: { params: { team: string } }) {
     const team = await db.team.findFirst({
         where: {

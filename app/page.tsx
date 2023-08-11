@@ -4,6 +4,8 @@ import { getMatchesOrdered } from "@/lib/utils"
 import { db } from "@/prisma"
 import dayjs from "dayjs"
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   // const matches = await db.match.findMany({
   //   where: {

@@ -38,7 +38,7 @@ export function Matches(props: PropsWithClassName<MatchesProps>) {
     }
 
     return <div className={twMerge(
-        "p-14 flex flex-col gap-2 overflow-auto",
+        "p-14 flex flex-col gap-2",
         className
     )} >
         {matchesOrdered.map((matchOrdered, index) => {

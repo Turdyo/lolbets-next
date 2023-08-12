@@ -5,6 +5,7 @@ import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import tbdImage from "@/public/team-tbd.png"
 import { LiveButton } from "./LiveButton";
+import Link from "next/link";
 
 interface MatchProps {
     match: Match & {
@@ -30,10 +31,13 @@ export function MatchComponent({
         "p-1 w-full flex justify-between items-center border border-gray-700 rounded-lg whitespace-nowrap shadow-lg h-24",
         className
     )}>
-        <Image alt={team1?.name ?? "TBD"} src={team1?.image_url ?? tbdImage} height={50} width={50} className={!isFinished || match.winner_id === team1?.id ? "" : "opacity-30"} />
+        <Link href={`/team/${team1?.name}`}>
+            <Image alt={team1?.name ?? "TBD"} src={team1?.image_url ?? tbdImage} height={50} width={50} className={!isFinished || match.winner_id === team1?.id ? "" : "opacity-30"} />
+        </Link>
         <div className="flex flex-col items-center justify-start h-full w-full">
             <span className="font-semibold text-custom-white-200 text-center flex flex-col">
-                <span>{team1?.name ?? "TBD"} vs {team2?.name ?? "TBD"} (BO{match.number_of_games})</span>
+                {/* <span>{team1?.name ?? "TBD"} vs {team2?.name ?? "TBD"} (BO{match.number_of_games})</span> */}
+                <span>{match.name} (BO{match.number_of_games})</span>
                 {
                     !isRunning && <span className="text-sm">{dayjs(match.scheduled_at).format("HH:mm")}</span>
                 }
@@ -54,6 +58,8 @@ export function MatchComponent({
                 hasBets && <div className="h-1 w-10 bg-red-600"></div>
             } */}
         </div>
-        <Image alt={team2?.name ?? "TBD"} src={team2?.image_url ?? tbdImage} height={50} width={50} className={!isFinished || match.winner_id === team2?.id ? "" : "opacity-30"} />
+        <Link href={`/team/${team2?.name}`}>
+            <Image alt={team2?.name ?? "TBD"} src={team2?.image_url ?? tbdImage} height={50} width={50} className={!isFinished || match.winner_id === team2?.id ? "" : "opacity-30"} />
+        </Link>
     </div>
 }

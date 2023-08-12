@@ -32,6 +32,6 @@ export default async function League({ params }: { params: { league: string } })
     }
 
     const matchesOrdered = getMatchesOrdered(league.match)
+    return <Matches matchesOrdered={matchesOrdered} mode="league" className="h-full w-full max-w-5xl m-auto"/>
 
-    return <Matches matchesOrdered={matchesOrdered} mode="league" className="h-full" />
 }

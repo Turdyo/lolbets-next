@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import tbdImage from "@/public/team-tbd.png"
-import { Button } from "./ui/Button";
+import { LiveButton } from "./LiveButton";
 
 interface MatchProps {
     match: Match & {
@@ -24,6 +24,7 @@ export function MatchComponent({
     const team2Score = match.games.filter(game => game.winner_id === team2?.id).length
     const isFinished = match.status === Status.finished
     const isRunning = match.status === Status.running
+    const hasBets = true
 
     return <div className={twMerge(
         "p-1 w-full flex justify-between items-center border border-gray-700 rounded-lg whitespace-nowrap shadow-lg h-24",
@@ -31,10 +32,12 @@ export function MatchComponent({
     )}>
         <Image alt={team1?.name ?? "TBD"} src={team1?.image_url ?? tbdImage} height={50} width={50} className={!isFinished || match.winner_id === team1?.id ? "" : "opacity-30"} />
         <div className="flex flex-col items-center justify-start h-full w-full">
-            <div className="font-semibold text-custom-white-200 text-center">
-                {team1?.name ?? "TBD"} vs {team2?.name ?? "TBD"} (BO{match.number_of_games})<br />
-                {!isRunning && dayjs(match.scheduled_at).format("HH:mm")}
-            </div>
+            <span className="font-semibold text-custom-white-200 text-center flex flex-col">
+                <span>{team1?.name ?? "TBD"} vs {team2?.name ?? "TBD"} (BO{match.number_of_games})</span>
+                {
+                    !isRunning && <span className="text-sm">{dayjs(match.scheduled_at).format("HH:mm")}</span>
+                }
+            </span>
             <div className="flex justify-between w-full">
                 <div></div>
                 {
@@ -43,16 +46,13 @@ export function MatchComponent({
                     </div>
                 }
                 {
-                    isRunning && <div className="relative w-max mt-1 mr-9">
-                        <Button className="absolute p-2 z-0 border-custom-purple-text text-custom-purple-text">Live</Button>
-                        <span className="relative flex h-3 w-3 -mt-1 -ml-1">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-custom-purple-text opacity-75 z-10"></span>
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-custom-purple-text z-10"></span>
-                        </span>
-                    </div>
+                    isRunning && <LiveButton className="mt-2" />
                 }
                 <div></div>
             </div>
+            {/* {
+                hasBets && <div className="h-1 w-10 bg-red-600"></div>
+            } */}
         </div>
         <Image alt={team2?.name ?? "TBD"} src={team2?.image_url ?? tbdImage} height={50} width={50} className={!isFinished || match.winner_id === team2?.id ? "" : "opacity-30"} />
     </div>

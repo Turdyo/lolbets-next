@@ -36,10 +36,10 @@ export function TeamWinrateElement({
         </div>
         <div className="flex flex-col gap-px items-center">
             <span>
-            <span className="font-semibold">{winrate}</span>%
+                <span className="font-semibold">{winrate}</span>%
             </span>
             <span className="text-xs">
-                {nbMatches} match{nbMatches > 1 && <>es</>}
+                {nbMatches} match
             </span>
         </div>
     </div>

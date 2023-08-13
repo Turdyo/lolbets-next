@@ -11,7 +11,7 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID!,
       clientSecret: process.env.DISCORD_CLIENT_SECRET!,
-      authorization: "https://discord.com/api/oauth2/authorize?scope=identify",
+      authorization: { params: {scope: 'identify'}},
       profile(profile: DiscordProfile) {
         if (profile.avatar === null) {
           const defaultAvatarNumber = Math.floor(Math.random() * 6);

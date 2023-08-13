@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
         return {
           id: profile.id,
           discordId: profile.id,
-          name: profile.global_name,
+          name: profile.global_name ?? profile.username,
           image: profile.image_url,
         }
       },

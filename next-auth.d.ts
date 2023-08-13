@@ -16,6 +16,6 @@ declare module "next-auth" {
 
 declare module "next-auth/providers/discord" {
     interface DiscordProfile {
-        global_name: string
+        global_name?: string
     }
 }

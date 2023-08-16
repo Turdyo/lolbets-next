@@ -28,7 +28,8 @@ export enum LeaguesTracked {
     LFL = "LFL",
     LEC = "LEC",
     LCK = "LCK",
-    LPL = "LPL"
+    LPL = "LPL",
+    EUM = "EMEA Masters"
 }
 
 export async function getTeamWinrates(team_id: number) {

@@ -18,7 +18,7 @@ export async function GET() {
     const upcomingMatches = await fetchMatches("upcoming")
 
     const matches = [...pastMatches, ...upcomingMatches, ...runningMatches].filter(match => {
-        return match.league.name in LeaguesTracked
+        return Object.values(LeaguesTracked).includes(match.league.name as LeaguesTracked)
     })
 
     const leagues = matches.map(match => match.league)

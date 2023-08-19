@@ -13,8 +13,8 @@ export default async function Home() {
     const matchesOfTheDayQuery = db.match.findMany({
         where: {
             scheduled_at: {
-                gte: dayjs(todayWithoutHour).add(3, 'hour').toDate(),
-                lt: dayjs(todayWithoutHour).add(3, 'hour').add(1, 'day').toDate()
+                gte: dayjs(todayWithoutHour).add(2, 'hours').toDate(),
+                lt: dayjs(todayWithoutHour).add(2, 'hours').add(1, 'day').toDate()
             }
         },
         include: {
@@ -29,8 +29,8 @@ export default async function Home() {
     const upcomingMatchesQuery = db.match.findMany({
         where: {
             scheduled_at: {
-                gte: dayjs(todayWithoutHour).add(3, 'hour').add(1, 'day').toDate(),
-                lt: dayjs(todayWithoutHour).add(3, 'hour').add(7, 'day').toDate()
+                gte: dayjs(todayWithoutHour).add(2, 'hours').add(1, 'day').toDate(),
+                lt: dayjs(todayWithoutHour).add(2, 'hours').add(7, 'day').toDate()
             }
         },
         include: {

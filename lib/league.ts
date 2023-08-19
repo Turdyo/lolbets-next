@@ -56,6 +56,6 @@ export async function getTeamWinrates(team_id: number) {
             opponent: opponent,
             matches: matches.filter(match => match.opponents.filter(team => team.name === opponent.name).length === 1 && match.status === "finished")
         }))
-        .sort((a, b) => a.matches.length - b.matches.length)
+        .sort((a, b) => a.matches.length - b.matches.length).reverse()
 
 }

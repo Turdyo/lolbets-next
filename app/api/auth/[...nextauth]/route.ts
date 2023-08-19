@@ -45,7 +45,14 @@ export const authOptions: NextAuthOptions = {
       })
     }
   },
-  callbacks: {},
+  callbacks: {
+    session({session, user}) {
+      return {
+        ...session,
+        points: user.points
+      }
+    }
+  },
   pages: {
     error: "/",
     signIn: "/",

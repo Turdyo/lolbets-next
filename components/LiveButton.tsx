@@ -14,7 +14,7 @@ export function LiveButton({
     return <div className={twMerge("relative min-w-max", className)}>
         <Button className="p-2 z-0 border-custom-purple-text text-custom-purple-text" onClick={() => {
             window.open(stream_url, "_blank")
-        }}>Live</Button>
+        }}>Live{` - ${stream_url.split('/').at(-1)}`}</Button>
         <span className="absolute flex h-3 w-3 top-0 right-0 -mt-1 -mr-1">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-custom-purple-text opacity-75 z-10"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-custom-purple-text z-10"></span>

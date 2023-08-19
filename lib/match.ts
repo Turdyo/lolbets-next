@@ -2,8 +2,10 @@ import { db } from "@/prisma";
 import { MatchResponse } from "./apiConnector";
 
 export async function createOrUpdateMatches(matches: MatchResponse[]) {
-    return await db.$transaction(
-        matches.map(match => db.match.upsert({
+    return await db.$transaction(matches.map(match => {
+        const otp = match.streams_list.find(streamElement => streamElement.raw_url.includes("otplol"))
+        const stream = otp ?? match.streams_list.find(streamElement => streamElement.main)
+        return db.match.upsert({
             where: {
                 id: match.id
             },
@@ -22,7 +24,8 @@ export async function createOrUpdateMatches(matches: MatchResponse[]) {
                     connect: match.opponents.map(opponent => ({
                         id: opponent.opponent.id
                     }))
-                }
+                },
+                stream: stream?.raw_url
             },
             update: {
                 id: match.id,
@@ -41,7 +44,8 @@ export async function createOrUpdateMatches(matches: MatchResponse[]) {
                         id: opponent.opponent.id
                     }))
                 },
+                stream: stream?.raw_url
             }
-        }))
-    )
+        })
+    }))
 }

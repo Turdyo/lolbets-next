@@ -24,6 +24,7 @@ model Match {
   number_of_games  Int
   scheduled_at     DateTime
   status           Status
+  stream           String?
   bets_distributed Boolean   @default(false)
 
   games     Game[]

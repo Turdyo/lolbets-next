@@ -1,5 +1,5 @@
 "use client";
-import { Award, Trophy, User2 } from "lucide-react";
+import { Trophy, User2 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { NavbarElement } from "./NavbarElement";
 
@@ -11,9 +11,6 @@ export function Navbar() {
         </NavbarElement>
         <NavbarElement href="/team" icon={<User2 color="#a3a3a3" />} selected={path.includes("team")}>
             Teams
-        </NavbarElement>
-        <NavbarElement href="/leaderboard" icon={<Award color="#a3a3a3" />} selected={path.includes("leaderboard")}>
-            Leaderboard
         </NavbarElement>
     </div>
 }

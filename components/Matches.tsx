@@ -12,20 +12,20 @@ dayjs.locale("fr")
 
 type MatchesProps = {
     matchesOrdered: MatchesOrdered,
-} & ({ mode: 'team', team_id: number } | { mode: 'league' })
+} & ({ mode: 'team', team_id: number } | { mode: 'league' } | { mode: 'homepage' })
 
 export function Matches(props: PropsWithClassName<MatchesProps>) {
     const className = props.className
     const matchesOrdered = props.matchesOrdered
     const mode = props.mode
-    
+
     const closestDayBox = useRef<HTMLDivElement>(null)
     useEffect(() => {
         closestDayBox.current?.scrollIntoView({
             behavior: "smooth",
         })
     }, [])
-    
+
     const today = useMemo(() => dayjs(), [])
     const closestIndex = useMemo<number>(() => {
         return getClosestDay(matchesOrdered, today.toDate())
@@ -45,8 +45,8 @@ export function Matches(props: PropsWithClassName<MatchesProps>) {
             const isToday = dayjs(matchOrdered.date).isSame(today, 'day')
             const hasPassedMatches = closestIndex > 0
             const isClosest = index === closestIndex && hasPassedMatches
-            return <div key={index} className="w-full" ref={isClosest ? closestDayBox : undefined}>
-                <span className={twMerge(
+            return <div key={index} className={`w-full ${mode !== 'homepage' && isToday ? "bg-custom-yellow-100 bg-opacity-10 p-2 rounded-lg" : ""} `} ref={isClosest ? closestDayBox : undefined}>
+                {mode !== 'homepage' && <span className={twMerge(
                     "font-semibold text-custom-white-200",
                     isToday ? "text-custom-yellow-200" : ""
                 )}>
@@ -62,7 +62,7 @@ export function Matches(props: PropsWithClassName<MatchesProps>) {
                             </div>
                         }
                     </div>
-                </span>
+                </span>}
 
                 <div className="flex flex-col gap-2">
                     {matchOrdered.matches.map((match, index) => {
@@ -73,13 +73,13 @@ export function Matches(props: PropsWithClassName<MatchesProps>) {
                                 "rounded-md",
                                 isFinished ? isWinner ? "bg-custom-blue-300 border-l-[6px] border-l-custom-blue-400" : "bg-custom-red-300 border-l-[6px] border-l-custom-red-400" : ""
                             )} />
-                        } else if (mode === "league") {
+                        } else if (mode === "league" || mode === "homepage") {
                             return <MatchComponent match={match} key={index} />
                         }
                     })}
                 </div>
             </div>
         })}
-        <div className="min-h-[calc(100vh-112px)]"></div>
+        {mode !== 'homepage' && <div className="min-h-[calc(100vh-112px)]"></div>}
     </div>
 }

@@ -11,6 +11,9 @@ declare module "next-auth" {
     interface Profile {
         discordId: string
     }
+    interface Session {
+        points: number
+    }
 }
 
 

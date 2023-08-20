@@ -8,13 +8,13 @@ import dayjs from "dayjs"
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-    const todayWithoutHour = new Date(new Date().toDateString())
+    const todayWithoutHour = new Date(dayjs().add(2, 'hours').toDate().toDateString()) // UTC + 2 :)
 
     const matchesOfTheDayQuery = db.match.findMany({
         where: {
             scheduled_at: {
-                gte: dayjs(todayWithoutHour).add(2, 'hours').toDate(),
-                lt: dayjs(todayWithoutHour).add(2, 'hours').add(1, 'day').toDate()
+                gte: todayWithoutHour,
+                lt: dayjs(todayWithoutHour).add(1, 'day').toDate()
             }
         },
         include: {
@@ -29,8 +29,8 @@ export default async function Home() {
     const upcomingMatchesQuery = db.match.findMany({
         where: {
             scheduled_at: {
-                gte: dayjs(todayWithoutHour).add(2, 'hours').add(1, 'day').toDate(),
-                lt: dayjs(todayWithoutHour).add(2, 'hours').add(7, 'day').toDate()
+                gte: dayjs(todayWithoutHour).add(1, 'day').toDate(),
+                lt: dayjs(todayWithoutHour).add(7, 'day').toDate()
             }
         },
         include: {

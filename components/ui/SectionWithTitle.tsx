@@ -12,10 +12,10 @@ export function SectionWithTitle({
     title
 }: PropsWithClassName<PropsWithChildren<SectionWithTitleProps>>) {
     return <div className={twMerge(
-        "flex flex-col w-full h-full bg-custom-blue-500 rounded-lg shadow-md",
+        "flex flex-col w-full h-full bg-custom-blue-500 rounded-xl ",
         className
     )}>
-        <div className="bg-custom-purple-100 rounded-t-lg p-2 text-lg font-semibold">
+        <div className="rounded-t-lg p-4 text-lg font-semibold">
             {title}
         </div>
         <div className="overflow-auto">

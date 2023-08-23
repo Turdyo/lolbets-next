@@ -32,7 +32,8 @@ export default async function Team({ params }: { params: { team: string } }) {
             match: {
                 include: {
                     opponents: true,
-                    games: true
+                    games: true,
+                    bets: true
                 },
                 orderBy: {
                     scheduled_at: "asc"

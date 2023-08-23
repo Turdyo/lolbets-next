@@ -7,6 +7,8 @@ import { Sidebar } from '@/components/Sidebar'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Lolbets',
 }
@@ -22,7 +24,7 @@ export default async function RootLayout({
         <Provider>
           <div className='flex h-screen'>
             <Sidebar />
-            <div className='bg-custom-blue-100 w-[calc(100vw-18rem)] overflow-auto'>
+            <div className='bg-custom-blue-100 w-full overflow-auto'>
               {children}
             </div>
           </div>

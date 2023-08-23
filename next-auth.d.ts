@@ -12,7 +12,7 @@ declare module "next-auth" {
         discordId: string
     }
     interface Session {
-        points: number
+        discordId: string
     }
 }
 

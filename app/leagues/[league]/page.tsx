@@ -16,7 +16,8 @@ export default async function League({ params }: { params: { league: string } })
             match: {
                 include: {
                     games: true,
-                    opponents: true
+                    opponents: true,
+                    bets: true
                 },
                 orderBy: {
                     scheduled_at: "asc"

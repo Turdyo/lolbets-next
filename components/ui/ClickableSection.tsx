@@ -15,7 +15,7 @@ export function ClickableSection({
     return <Link
         href={href}
         className={twMerge(
-            "bg-[#1a2231] bg-green p-6 rounded-lg border border-gray-600 border-opacity-60 hover:border-opacity-100 transition-all cursor-pointer text-custom-white-200 shadow-md",
+            "bg-[#1a2231] bg-green p-6 rounded-lg border border-gray-600 border-opacity-60 hover:border-opacity-100 transition-all cursor-pointer text-custom-white-200",
             className
         )}
     >

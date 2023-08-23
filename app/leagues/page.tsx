@@ -24,6 +24,9 @@ export default async function Leagues() {
                     }
                 }
             }
+        },
+        orderBy: {
+            name: "asc"
         }
     })
 

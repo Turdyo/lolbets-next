@@ -3,19 +3,21 @@ import { User, getServerSession } from "next-auth"
 import Image from "next/image"
 import { twMerge } from "tailwind-merge"
 import logo from '@/public/lolbets-logo.png'
+import { PropsWithClassName } from "@/lib/types/common"
 
 interface LeaderboardProps {
     users: User[]
 }
 
 export async function Leaderboard({
-    users
-}: LeaderboardProps) {
+    users,
+    className
+}: PropsWithClassName<LeaderboardProps>) {
 
     const session = await getServerSession(authOptions)
-    return <div className="p-2 h-full flex flex-col gap-2 overflow-auto">
+    return <div className={twMerge("p-2 h-full flex flex-col gap-2 overflow-auto", className)}>
         {users.map((user, index) => <div key={index} className={twMerge(
-            "border w-full border-gray-700 rounded-lg shadow-md flex items-center justify-between p-4",
+            "border w-full border-gray-700 rounded-lg flex items-center justify-between p-4",
             session?.user?.name === user.name ? "bg-custom-blue-200 border-gray-600" : ""
         )}>
             <div className="flex items-center gap-4">

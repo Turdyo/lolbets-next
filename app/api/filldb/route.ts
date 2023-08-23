@@ -29,5 +29,7 @@ export async function GET() {
     await createOrUpdateMatches(matches)
     await createOrUpdateGames(games)
 
+    console.log("db filled")
+
     return NextResponse.json({ response: "done" })
 }

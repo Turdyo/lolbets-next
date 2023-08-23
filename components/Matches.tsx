@@ -14,9 +14,7 @@ type MatchesProps = {
     matchesOrdered: MatchesOrdered,
 } & ({ mode: 'team', team_id: number } | { mode: 'league' } | { mode: 'homepage' })
 
-export function Matches(props: PropsWithClassName<MatchesProps>) {
-    const className = props.className
-    const matchesOrdered = props.matchesOrdered
+export function Matches({matchesOrdered, className, ...props}: PropsWithClassName<MatchesProps>) {
     const mode = props.mode
 
     const closestDayBox = useRef<HTMLDivElement>(null)

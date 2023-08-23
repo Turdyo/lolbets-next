@@ -12,7 +12,7 @@ export function MatchStats({
     totalAmount
 }: MatchStatsProps) {
     return <div className="w-16">
-    <span className="flex gap-2"><Users color={color} />{nbBets}</span>
-    <span className="flex gap-2"><Coins color={color}/>{totalAmount}</span>
-</div>
+        <span className="flex gap-2"><Users color={color} />{nbBets}</span>
+        <span className="flex gap-2"><Coins color={color} />{totalAmount}</span>
+    </div>
 }

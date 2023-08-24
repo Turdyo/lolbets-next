@@ -5,25 +5,17 @@ import { Button } from "./ui/Button"
 import Image from "next/image"
 import logo from '@/public/lolbets-logo.png'
 
-interface LoginButtonProps {
-    user : {
-        name: string | null
-        image: string | null
-        points: number
-    } | null
-}
+export function LoginButton() {
+    const session = useSession()
 
-export function LoginButton({
-    user
-}: LoginButtonProps) {
-    if (user) {
+    if (session.status === "authenticated") {
         return <div className="p-10 self-center flex flex-col items-center">
-            <div className="flex gap-4 mb-6 items-center">
-                <Image src={user.image!} width={40} height={40} className="rounded-full" alt={user.name!} />
+            <div className="flex gap-2 mb-6 items-center">
+                <Image src={session.data.user?.image!} width={40} height={40} className="rounded-full" alt={session.data.user?.name!} />
                 <div className="flex flex-col" >
-                    <span className="font-bold text-custom-white-100">{user.name}</span>
+                    <span className="font-bold text-custom-white-100">{session.data.user?.name!}</span>
                     <span className="flex gap-2">
-                        <span className="font-bold text-custom-yellow-100">{user.points}</span>
+                        <span className="font-bold text-custom-yellow-100">{session.data.points}</span>
                         <Image src={logo} alt="Logo" width={24} />
                     </span>
                 </div>
@@ -36,5 +28,4 @@ export function LoginButton({
             <Button onClick={() => signIn("discord")} className="border-custom-purple-text text-custom-purple-text">Login via discord</Button>
         </div>
     }
-
 }

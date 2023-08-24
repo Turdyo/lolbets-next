@@ -17,13 +17,15 @@ export function NavbarElement({
     return <Link
         href={href}
         className={twMerge(
-            "flex items-center gap-4 border border-gray-600 border-opacity-0 hover:border-opacity-100 transition-all rounded-lg p-4",
+            "flex items-center gap-6 border border-gray-600 border-opacity-0 hover:border-opacity-100 transition-all rounded-lg p-4",
             selected ? "border-opacity-60" : ""
         )}
     >
-        {icon}
+        <span className="w-6 h-6">
+            {icon}
+        </span>
         <span className={twMerge(
-            "font-semibold text-custom-white-200 text-sm",
+            "font-semibold text-custom-white-200 text-sm opacity-0 group-hover:opacity-100 transition-all",
             selected ? "text-custom-white-100" : ""
         )}>
             {children}

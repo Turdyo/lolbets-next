@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
     session({session, user}) {
       return {
         ...session,
-        discordId: user.discordId
+        points: user.points
       }
     }
   },

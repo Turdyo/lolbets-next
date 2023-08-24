@@ -4,14 +4,15 @@ import { signIn, signOut, useSession } from "next-auth/react"
 import { Button } from "./ui/Button"
 import Image from "next/image"
 import logo from '@/public/lolbets-logo.png'
+import { LogIn } from "lucide-react"
 
 export function LoginButton() {
     const session = useSession()
 
     if (session.status === "authenticated") {
-        return <div className="p-10 self-center flex flex-col items-center">
-            <div className="flex gap-2 mb-6 items-center">
-                <Image src={session.data.user?.image!} width={40} height={40} className="rounded-full" alt={session.data.user?.name!} />
+        return <div className="flex gap-2 p-2 bg-custom-blue-300">
+            <Image src={session.data.user?.image!} width={48} height={48} className="rounded-full" alt={session.data.user?.name!} />
+            <div className="flex justify-between w-full opacity-0 group-hover:opacity-100 transition-all">
                 <div className="flex flex-col" >
                     <span className="font-bold text-custom-white-100">{session.data.user?.name!}</span>
                     <span className="flex gap-2">
@@ -19,13 +20,13 @@ export function LoginButton() {
                         <Image src={logo} alt="Logo" width={24} />
                     </span>
                 </div>
+                <Button onClick={() => signOut()} className="border-custom-purple-text text-custom-purple-text p-[10px]">Logout</Button>
             </div>
-            <Button onClick={() => signOut()} className="border-custom-purple-text text-custom-purple-text">Sign out</Button>
         </div>
-
     } else {
-        return <div className="p-10 self-center">
-            <Button onClick={() => signIn("discord")} className="border-custom-purple-text text-custom-purple-text">Login via discord</Button>
+        return <div className="p-2 relative bg-custom-blue-300 flex items-center">
+            <Button onClick={() => signIn("discord")} className="border-custom-purple-text text-custom-purple-text p-[10px] opacity-100 group-hover:opacity-0 transition-all absolute"><LogIn /></Button>
+            <Button onClick={() => signIn("discord")} className="border-custom-purple-text text-custom-purple-text p-[10px] opacity-0 group-hover:opacity-100 transition-all m-auto">Login via discord</Button>
         </div>
     }
 }

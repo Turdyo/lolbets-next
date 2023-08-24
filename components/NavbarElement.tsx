@@ -17,7 +17,7 @@ export function NavbarElement({
     return <Link
         href={href}
         className={twMerge(
-            "flex items-center gap-6 border border-gray-600 border-opacity-0 hover:border-opacity-100 transition-all rounded-lg p-4",
+            "flex items-center gap-6 border border-gray-600 border-opacity-0 hover:border-opacity-100 transition-all rounded-lg p-3",
             selected ? "border-opacity-60" : ""
         )}
     >

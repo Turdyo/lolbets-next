@@ -4,7 +4,7 @@ import { LoginButton } from "./LoginButton";
 
 export function Sidebar() {
     return <>
-        <div className='bg-custom-blue-200 flex flex-col w-[82px] shrink-0 justify-between hover:w-72 transition-all group'>
+        <div className='bg-custom-blue-200 flex flex-col w-16 shrink-0 justify-between hover:w-64 transition-all group'>
             <div>
                 <Logo />
                 <Navbar />

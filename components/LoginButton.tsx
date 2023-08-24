@@ -12,7 +12,7 @@ export function LoginButton() {
     if (session.status === "authenticated") {
         return <div className="flex gap-2 p-2 bg-custom-blue-300">
             <Image src={session.data.user?.image!} width={48} height={48} className="rounded-full" alt={session.data.user?.name!} />
-            <div className="flex justify-between w-full opacity-0 group-hover:opacity-100 transition-all">
+            <div className="flex justify-between w-full invisible group-hover:visible transition-all">
                 <div className="flex flex-col" >
                     <span className="font-bold text-custom-white-100">{session.data.user?.name!}</span>
                     <span className="flex gap-2">

@@ -25,7 +25,7 @@ export function NavbarElement({
             {icon}
         </span>
         <span className={twMerge(
-            "font-semibold text-custom-white-200 text-sm opacity-0 group-hover:opacity-100 transition-all",
+            "font-semibold text-custom-white-200 text-sm invisible group-hover:visible transition-all",
             selected ? "text-custom-white-100" : ""
         )}>
             {children}

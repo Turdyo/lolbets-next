@@ -49,7 +49,8 @@ export const authOptions: NextAuthOptions = {
     session({session, user}) {
       return {
         ...session,
-        points: user.points
+        points: user.points,
+        discordId: user.discordId
       }
     }
   },

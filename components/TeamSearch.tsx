@@ -1,12 +1,13 @@
 "use client"
 
 import { getNormalizedText } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ClickableSection } from "./ui/ClickableSection";
 import { twMerge } from "tailwind-merge";
 import { PropsWithClassName } from "@/lib/types/common";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Fuse from "fuse.js";
 
 interface Team {
     name: string;
@@ -19,20 +20,29 @@ interface TeamSearchProps {
     teams: Team[]
 }
 
+const options = {
+    includeScore: true,
+    keys: ["name", "acronym"]
+}
+
 export function TeamSearch({ teams, className }: PropsWithClassName<TeamSearchProps>) {
     const [results, setResults] = useState<Team[]>([])
     const [searchInput, setSearchInput] = useState<string>("")
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const router = useRouter()
+    const fuse = useMemo(() => new Fuse(teams, options), [teams])
 
     useEffect(() => {
         if (searchInput === "") {
             setResults(teams)
         } else {
             const normalizedInput = getNormalizedText(searchInput)
-            setResults(teams.filter(team => getNormalizedText(team.name).includes(normalizedInput) || getNormalizedText(team.acronym).includes(normalizedInput)))
+            const result = fuse.search(normalizedInput)
+            console.log(result)
+            setResults(result.map(result => result.item))
+            // setResults(teams.filter(team => getNormalizedText(team.name).includes(normalizedInput) || getNormalizedText(team.acronym).includes(normalizedInput)))
         }
-    }, [searchInput, teams])
+    }, [searchInput, teams, fuse])
 
     return (
         <div className={twMerge("flex flex-col relative", className)}>

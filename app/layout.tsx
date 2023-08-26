@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
-import { Provider } from '@/components/Provider'
+import { Providers } from '@/app/Providers'
 import { Sidebar } from '@/components/Sidebar'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -21,14 +21,14 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider>
+        <Providers>
           <div className='flex h-screen'>
             <Sidebar />
             <div className='bg-custom-blue-100 w-full overflow-auto'>
               {children}
             </div>
           </div>
-        </Provider>
+        </Providers>
       </body>
     </html>
   )

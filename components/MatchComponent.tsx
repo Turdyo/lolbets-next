@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import tbdImage from "@/public/team-tbd.png"
-import { LiveButton } from "./LiveButton";
 import Link from "next/link";
 import { BetSection } from "./BetSection";
 import { MatchStats } from "./MatchStats";
@@ -15,13 +14,14 @@ interface MatchProps {
         opponents: Team[],
         bets: Bet[]
     },
+    onBet: () => void
 }
 
 export function MatchComponent({
     className,
-    match
+    match,
+    onBet
 }: PropsWithClassName<MatchProps>) {
-
     const team1 = match.opponents.at(0)
     const team2 = match.opponents.at(1)
     const areTeamsDefined = team1 && team2
@@ -71,11 +71,10 @@ export function MatchComponent({
                         (isRunning || isFinished) && <div className="font-extrabold text-2xl text-custom-white-200 flex flex-col items-center justify-center">
                             <div className="flex gap-2 items-center h-8">
                                 <span className={match.winner_id === team1?.id ? "text-custom-yellow-100" : "text-custom-white-200"}>{team1Score}</span> - <span className={match.winner_id === team2?.id ? "text-custom-yellow-100" : "text-custom-white-200"}>{team2Score}</span>
-                                {/* {isRunning && <LiveButton className="text-sm absolute top-0 right-0" stream_url={match.stream ?? undefined} />} */}
                             </div>
                         </div>
                     }
-                    <BetSection matchId={match.id} team1Id={team1.id} team2Id={team2.id} status={match.status} hasBets={hasBets} team1BetsPercent={team1BetsPercent} team2BetsPercent={team2BetsPercent} />
+                    <BetSection onBet={onBet} matchId={match.id} team1Id={team1.id} team2Id={team2.id} status={match.status} hasBets={hasBets} team1BetsPercent={team1BetsPercent} team2BetsPercent={team2BetsPercent} />
                 </div>
                 <MatchStats color="#5383e8" nbBets={team2Bets.length} totalAmount={team2BetsAmount} />
             </div>}

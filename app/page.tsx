@@ -1,61 +1,21 @@
 import { Leaderboard } from "@/components/Leaderboard"
 import { Matches } from "@/components/Matches"
 import { SectionWithTitle } from "@/components/ui/SectionWithTitle"
-import { getMatchesOrdered } from "@/lib/utils"
 import { db } from "@/prisma"
-import dayjs from "dayjs"
 import { getServerSession } from "next-auth"
 import { authOptions } from "./api/auth/[...nextauth]/route"
+import { getLeaderboardUsers, getMatches, getMatchesOptions } from "@/lib/query"
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-    const todayWithoutHour = new Date(dayjs().add(2, 'hours').toDate().toDateString()) // UTC + 2 :)
     const session = await getServerSession(authOptions)
 
-    fetch("https://dev.lolbets.4esport.fr/api/filldb", {
-        cache: "no-cache"
-    })
+    const initialMatchesOfTheDay = await getMatches(getMatchesOptions("ofTheDay"))
 
-    const matchesOfTheDayQuery = db.match.findMany({
-        where: {
-            scheduled_at: {
-                gte: todayWithoutHour,
-                lt: dayjs(todayWithoutHour).add(1, 'day').toDate()
-            }
-        },
-        include: {
-            opponents: true,
-            games: true,
-            bets: true
-        },
-        orderBy: {
-            scheduled_at: "asc"
-        }
-    })
+    const initialMatchesUpcoming = await getMatches(getMatchesOptions("upcoming"))
 
-    const upcomingMatchesQuery = db.match.findMany({
-        where: {
-            scheduled_at: {
-                gte: dayjs(todayWithoutHour).add(1, 'day').toDate(),
-                lt: dayjs(todayWithoutHour).add(7, 'day').toDate()
-            }
-        },
-        include: {
-            opponents: true,
-            games: true,
-            bets: true
-        },
-        orderBy: {
-            scheduled_at: "asc"
-        }
-    })
-
-    const leaderboardQuery = db.user.findMany({
-        orderBy: {
-            points: "desc"
-        }
-    })
+    const leaderBoardInitialData = await getLeaderboardUsers()
 
     const betsQuery = session ? db.bet.findMany({
         where: {
@@ -83,16 +43,13 @@ export default async function Home() {
         }
     }) : undefined
 
-    const [matchesOfTheDay, upcomingMatches, users, bets] = await Promise.all([matchesOfTheDayQuery, upcomingMatchesQuery, leaderboardQuery, betsQuery])
-
-    const matchesOfTheDayOrdered = getMatchesOrdered(matchesOfTheDay)
-    const upcomingMatchesOrdered = getMatchesOrdered(upcomingMatches)
+    const bets = await betsQuery
 
     return <div className="flex h-full p-6 gap-6">
         <div className="w-full flex flex-col gap-6 h-full">
             <div className="h-[calc(50%-24px)]">
                 <SectionWithTitle title="Matches of the day">
-                    <Matches matchesOrdered={matchesOfTheDayOrdered} mode="homepage" className="p-4 pt-0" />
+                    <Matches initialData={initialMatchesOfTheDay} fetchUrl="/api/query/matches/oftheday"  mode="homepage" className="p-4 pt-0" />
                 </SectionWithTitle>
             </div>
             <div className="flex gap-6 h-1/2">
@@ -109,12 +66,12 @@ export default async function Home() {
                     </div>
                 </SectionWithTitle>
                 <SectionWithTitle title="Upcoming matches" className="w-full">
-                    <Matches matchesOrdered={upcomingMatchesOrdered} mode="league" className="p-4 pt-0" />
+                    <Matches initialData={initialMatchesUpcoming} fetchUrl="/api/query/matches/upcoming" mode="league" className="p-4 pt-0" />
                 </SectionWithTitle>
             </div>
         </div>
         <SectionWithTitle title="Leaderboard" className="min-w-max max-w-xs">
-            <Leaderboard users={users} className="p-4 pt-0" />
+            <Leaderboard initialData={leaderBoardInitialData} className="p-4 pt-0" />
         </SectionWithTitle>
     </div>
 }

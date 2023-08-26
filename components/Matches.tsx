@@ -2,33 +2,44 @@
 import { MatchesOrdered, PropsWithClassName } from "@/lib/types/common";
 import { MatchComponent } from "./MatchComponent";
 import { twMerge } from "tailwind-merge";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { getClosestDay, getMatchesOrdered } from "@/lib/utils";
+import { ArrowUp } from "lucide-react";
+import { GetMatches } from "@/lib/query";
+import { useMatches } from "@/hooks/useMatches";
 import dayjs from "dayjs"
 import "dayjs/locale/fr"
-import { getClosestDay } from "@/lib/utils";
-import { ArrowUp } from "lucide-react";
+import { usePoints } from "@/hooks/usePoints";
 
 dayjs.locale("fr")
 
 type MatchesProps = {
-    matchesOrdered: MatchesOrdered,
+    fetchUrl: string,
+    initialData: GetMatches
 } & ({ mode: 'team', team_id: number } | { mode: 'league' } | { mode: 'homepage' })
 
-export function Matches({matchesOrdered, className, ...props}: PropsWithClassName<MatchesProps>) {
+export function Matches({
+    initialData,
+    className,
+    fetchUrl,
+    ...props
+}: PropsWithClassName<MatchesProps>) {
     const mode = props.mode
 
-    const closestDayBox = useRef<HTMLDivElement>(null)
-    useEffect(() => {
-        closestDayBox.current?.scrollIntoView({
-            behavior: "smooth",
-        })
-    }, [])
+    const { data: matches, refetch } = useMatches({ url: fetchUrl })
+    const { refetch: pointsRefresh } = usePoints()
 
-    const today = useMemo(() => dayjs(), [])
-    const closestIndex = useMemo<number>(() => {
-        return getClosestDay(matchesOrdered, today.toDate())
-    }, [today, matchesOrdered])
-    
+    const [matchesOrdered, setMatchesOrdered] = useState<MatchesOrdered>(getMatchesOrdered(initialData))
+    useEffect(() => {
+        if (matches) setMatchesOrdered(getMatchesOrdered(matches))
+    }, [matches])
+
+    const closestDayBox = useRef<HTMLDivElement>(null)
+    useEffect(() => closestDayBox.current?.scrollIntoView({ behavior: "smooth", }), [])
+
+    const today = dayjs()
+    const closestIndex = useMemo<number>(() => getClosestDay(matchesOrdered, today.toDate()), [today, matchesOrdered])
+
     if (matchesOrdered.length === 0) {
         return <div className={twMerge("text-center p-14", className)}>
             Pas de Matchs
@@ -67,12 +78,18 @@ export function Matches({matchesOrdered, className, ...props}: PropsWithClassNam
                         if (mode === "team") {
                             const isFinished = match.status === "finished"
                             const isWinner = match.winner_id && match.winner_id === props.team_id
-                            return <MatchComponent match={match} key={index} className={twMerge(
+                            return <MatchComponent onBet={() => {
+                                pointsRefresh()
+                                refetch()
+                            }} match={match} key={index} className={twMerge(
                                 "rounded-md",
                                 isFinished ? isWinner ? "bg-custom-blue-300 border-l-[6px] border-l-custom-blue-400" : "bg-custom-red-300 border-l-[6px] border-l-custom-red-400" : ""
                             )} />
                         } else if (mode === "league" || mode === "homepage") {
-                            return <MatchComponent match={match} key={index} />
+                            return <MatchComponent onBet={() => {
+                                pointsRefresh()
+                                refetch()
+                            }} match={match} key={index} />
                         }
                     })}
                 </div>

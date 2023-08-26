@@ -1,48 +1,17 @@
-import { getMatchesOrdered } from "@/lib/utils"
-import { db } from "@/prisma"
 import Image from "next/image"
 import dayjs from "dayjs"
 import "dayjs/locale/fr"
 import { getTeamWinrates } from "@/lib/league"
 import { TeamWinrate } from "@/components/TeamWinrate"
 import { Matches } from "@/components/Matches"
+import { getMatchesByTeam } from "@/lib/query"
 
 dayjs.locale('fr')
 
 export const dynamic = 'force-dynamic'
 
 export default async function Team({ params }: { params: { team: string } }) {
-    const team = await db.team.findFirst({
-        where: {
-            OR: [{
-                acronym: {
-                    equals: decodeURI(params.team),
-                    mode: "insensitive"
-                }
-
-            },
-            {
-                name: {
-                    equals: decodeURI(params.team),
-                    mode: "insensitive"
-                }
-            }]
-        },
-        include: {
-            match: {
-                include: {
-                    opponents: true,
-                    games: true,
-                    bets: true
-                },
-                orderBy: {
-                    scheduled_at: "asc"
-                }
-            },
-            bets: true
-        }
-    })
-
+    const team = await getMatchesByTeam(params.team)
     if (!team) {
         return <div>
             Team {params.team} not found !
@@ -50,7 +19,6 @@ export default async function Team({ params }: { params: { team: string } }) {
     }
 
     const teamWinrates = await getTeamWinrates(team.id)
-    const matchesOrdered = getMatchesOrdered(team.match)
 
     return (
         <div className="flex gap-14 justify-between h-full">
@@ -61,7 +29,7 @@ export default async function Team({ params }: { params: { team: string } }) {
                 </div>
                 <TeamWinrate data={teamWinrates} />
             </div>
-            <Matches matchesOrdered={matchesOrdered} mode="team" team_id={team.id} className="w-full p-2 h-full overflow-auto" />
+            <Matches initialData={team.match} fetchUrl={`/api/query/matches/team/${team.name}`} mode="team" team_id={team.id} className="w-full p-2 h-full overflow-auto" />
         </div>
     )
 }

@@ -5,9 +5,11 @@ import { Button } from "./ui/Button"
 import Image from "next/image"
 import logo from '@/public/lolbets-logo.png'
 import { LogIn } from "lucide-react"
+import { usePoints } from "@/hooks/usePoints"
 
 export function LoginButton() {
     const session = useSession()
+    const { data } = usePoints()
 
     if (session.status === "authenticated") {
         return <div className="flex gap-2 p-2 bg-custom-blue-300">
@@ -16,7 +18,7 @@ export function LoginButton() {
                 <div className="flex flex-col" >
                     <span className="font-bold text-custom-white-100">{session.data.user?.name!}</span>
                     <span className="flex gap-2">
-                        <span className="font-bold text-custom-yellow-100">{session.data.points}</span>
+                        <span className="font-bold text-custom-yellow-100">{data?.points}</span>
                         <Image src={logo} alt="Logo" width={24} />
                     </span>
                 </div>

@@ -2,6 +2,7 @@ import { db } from "@/prisma";
 import { Prisma } from "@prisma/client";
 import dayjs from "dayjs";
 
+
 const todayWithoutHour = new Date(dayjs().add(2, 'hours').toDate().toDateString()) // UTC + 2 :)
 
 export async function getLeaderboardUsers() {

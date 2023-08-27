@@ -1,6 +1,5 @@
 import { db } from "@/prisma";
 import { GameResponse } from "./apiConnector";
-import { Prisma } from "@prisma/client";
 
 export async function createOrUpdateGames(games: GameResponse[]) {
     return await db.$transaction(

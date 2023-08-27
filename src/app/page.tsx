@@ -3,7 +3,7 @@ import { Matches } from "@/components/Matches"
 import { SectionWithTitle } from "@/components/ui/SectionWithTitle"
 import { db } from "@/prisma"
 import { getServerSession } from "next-auth"
-import { authOptions } from "./api/auth/[...nextauth]/route"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { getLeaderboardUsers, getMatches, getMatchesOptions } from "@/lib/query"
 
 export const dynamic = 'force-dynamic'

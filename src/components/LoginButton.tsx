@@ -3,7 +3,7 @@
 import { signIn, signOut, useSession } from "next-auth/react"
 import { Button } from "./ui/Button"
 import Image from "next/image"
-import logo from '@/public/lolbets-logo.png'
+import logo from '@/../public/lolbets-logo.png'
 import { LogIn } from "lucide-react"
 import { usePoints } from "@/hooks/usePoints"
 

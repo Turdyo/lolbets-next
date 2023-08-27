@@ -3,7 +3,7 @@ import { Bet, Game, Match, Status, Team } from "@prisma/client";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import tbdImage from "@/public/team-tbd.png"
+import tbdImage from "@/../public/team-tbd.png"
 import Link from "next/link";
 import { BetSection } from "./BetSection";
 import { MatchStats } from "./MatchStats";

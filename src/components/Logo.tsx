@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from '@/public/lolbets-logo.png'
+import logo from '@/../public/lolbets-logo.png'
 import { PropsWithClassName } from "@/lib/types/common";
 import { twMerge } from "tailwind-merge";
 

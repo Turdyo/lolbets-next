@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image"
 import { twMerge } from "tailwind-merge"
-import logo from '@/public/lolbets-logo.png'
+import logo from '@/../public/lolbets-logo.png'
 import { PropsWithClassName } from "@/lib/types/common"
 import { GetLeaderboardUsers } from "@/lib/query"
 import { useSession } from "next-auth/react"

@@ -5,15 +5,18 @@ import { db } from "@/prisma"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { getLeaderboardUsers, getMatches, getMatchesOptions } from "@/lib/query"
+import dayjs from "dayjs"
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
+    const todayWithoutHour = new Date(dayjs().add(2, 'hours').toDate().toDateString()) // UTC + 2 :)
+
     const session = await getServerSession(authOptions)
 
-    const initialMatchesOfTheDay = await getMatches(getMatchesOptions("ofTheDay"))
+    const initialMatchesOfTheDay = await getMatches(getMatchesOptions("ofTheDay", todayWithoutHour))
 
-    const initialMatchesUpcoming = await getMatches(getMatchesOptions("upcoming"))
+    const initialMatchesUpcoming = await getMatches(getMatchesOptions("upcoming", todayWithoutHour))
 
     const leaderBoardInitialData = await getLeaderboardUsers()
 

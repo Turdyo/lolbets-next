@@ -85,6 +85,6 @@ export async function fetchMatches(time: "past" | "upcoming" | "running"): Promi
         headers: {
             Authorization: process.env.PANDASCORE_API_KEY ?? ""
         },
-        cache: 'no-cache'
+        cache: 'no-store'
     })).json()
 }

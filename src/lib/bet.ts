@@ -16,6 +16,6 @@ export function bet({
             teamId: teamId,
             matchId: matchId
         }),
-        cache: "no-cache"
+        cache: "no-store"
     })
 }

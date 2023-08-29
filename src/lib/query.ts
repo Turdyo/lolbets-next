@@ -3,8 +3,6 @@ import { Prisma } from "@prisma/client";
 import dayjs from "dayjs";
 
 
-const todayWithoutHour = new Date(dayjs().add(2, 'hours').toDate().toDateString()) // UTC + 2 :)
-
 export async function getLeaderboardUsers() {
     return db.user.findMany({
         select: {
@@ -36,13 +34,14 @@ export async function getMatches(options?: Prisma.MatchFindManyArgs) {
 
 export type GetMatches = Awaited<ReturnType<typeof getMatches>>
 
-export function getMatchesOptions(mode: "upcoming" | "ofTheDay"): Prisma.MatchFindManyArgs | undefined {
+export function getMatchesOptions(mode: "upcoming" | "ofTheDay", dayWithoutHour: Date): Prisma.MatchFindManyArgs | undefined {
+    // const todayWithoutHour = new Date(dayjs().add(2, 'hours').toDate().toDateString()) // UTC + 2 :)
     if (mode === "ofTheDay") {
         return {
             where: {
                 scheduled_at: {
-                    gte: todayWithoutHour,
-                    lt: dayjs(todayWithoutHour).add(1, 'day').toDate()
+                    gte: dayWithoutHour,
+                    lt: dayjs(dayWithoutHour).add(1, 'day').toDate()
                 }
             }
         }
@@ -50,8 +49,8 @@ export function getMatchesOptions(mode: "upcoming" | "ofTheDay"): Prisma.MatchFi
         return {
             where: {
                 scheduled_at: {
-                    gte: dayjs(todayWithoutHour).add(1, 'day').toDate(),
-                    lt: dayjs(todayWithoutHour).add(7, 'day').toDate()
+                    gte: dayjs(dayWithoutHour).add(1, 'day').toDate(),
+                    lt: dayjs(dayWithoutHour).add(7, 'day').toDate()
                 }
             }
         }

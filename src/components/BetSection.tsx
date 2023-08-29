@@ -38,12 +38,14 @@ export function BetSection({
                     amount: amount,
                     matchId: matchId,
                     teamId: team1Id
-                })
-                    .then(resp => {
-                        refetchLeaderboard()
-                        onBet && onBet()
-                    })
-                    .catch(error => console.log(error))}
+                }).then(resp => {
+                    if (!resp.ok) {
+                        alert(resp.statusText)
+                        return
+                    }
+                    refetchLeaderboard()
+                    onBet && onBet()
+                })}
             />}
             {props.hasBets && <div className="text-xl font-bold text-custom-red-400 flex flex-col items-end">
                 {props.team1BetsPercent.toFixed()} %
@@ -58,12 +60,14 @@ export function BetSection({
                     amount: amount,
                     matchId: matchId,
                     teamId: team2Id
-                })
-                    .then(resp => {
-                        refetchLeaderboard()
-                        onBet && onBet()
-                    })
-                    .catch(error => console.log(error))}
+                }).then(resp => {
+                    if (!resp.ok) {
+                        alert(resp.statusText)
+                        return
+                    }
+                    refetchLeaderboard()
+                    onBet && onBet()
+                })}
             />}
             {props.hasBets && <div className="text-xl font-bold text-custom-blue-400 rounded-xl">
                 {props.team2BetsPercent.toFixed()} %

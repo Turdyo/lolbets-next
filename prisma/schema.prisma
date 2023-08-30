@@ -7,33 +7,46 @@ datasource db {
   url      = env("DB_URL")
 }
 
-model League {
-  id        Int     @id
-  image_url String?
-  name      String
-  slug      String
-  match     Match[]
+model User {
+  id            String    @id
+  name          String?
+  image         String?
+  email         String?   @unique
+  emailVerified DateTime?
+  discordId     String    @unique
+  points        Int       @default(500)
+  Account       Account[]
+  Bet           Bet[]
+  Session       Session[]
 }
 
-model Match {
-  id               Int       @id
-  begin_at         DateTime?
-  end_at           DateTime?
-  name             String
-  slug             String
-  number_of_games  Int
-  scheduled_at     DateTime
-  status           Status
-  stream           String?
-  bets_distributed Boolean   @default(false)
+model Account {
+  id                String  @id
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  User              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  games     Game[]
-  league    League? @relation(fields: [league_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  league_id Int?
-  winner    Team?   @relation(name: "winner", fields: [winner_id], references: [id])
-  winner_id Int?
-  opponents Team[]
-  bets      Bet[]
+  @@unique([provider, providerAccountId])
+}
+
+model Bet {
+  id      String @id
+  amount  Int
+  matchId Int
+  teamId  Int
+  userId  String
+  Match   Match  @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  Team    Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  User    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Game {
@@ -46,83 +59,56 @@ model Game {
   finished  Boolean
   length    Int?
   winner_id Int?
-  match     Match     @relation(fields: [match_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   match_id  Int
+  Match     Match     @relation(fields: [match_id], references: [id], onDelete: Cascade)
 }
 
-model Team {
+model League {
   id        Int     @id
-  acronym   String
-  image_url String
-  location  String?
+  image_url String?
   name      String
   slug      String
-  match     Match[]
-  match_won Match[] @relation(name: "winner")
-  bets      Bet[]
+  Match     Match[]
 }
 
-enum Status {
-  not_started
-  running
-  finished
-  canceled
-}
-
-model Bet {
-  id     String @id @default(cuid())
-  amount Int
-
-  match   Match  @relation(fields: [matchId], references: [id], onDelete: Cascade)
-  matchId Int
-  team    Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  teamId  Int
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String
-}
-
-// NEXTAUTH
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  discordId     String    @unique
-  points        Int       @default(500)
-
-  bets Bet[]
-
-  accounts Account[]
-  sessions Session[]
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
+model Match {
+  id                         Int       @id
+  begin_at                   DateTime?
+  end_at                     DateTime?
+  name                       String
+  slug                       String
+  number_of_games            Int
+  scheduled_at               DateTime
+  status                     Status
+  league_id                  Int?
+  winner_id                  Int?
+  bets_distributed           Boolean   @default(false)
+  stream                     String?
+  Bet                        Bet[]
+  Game                       Game[]
+  League                     League?   @relation(fields: [league_id], references: [id], onDelete: Cascade)
+  Team_Match_winner_idToTeam Team?     @relation("Match_winner_idToTeam", fields: [winner_id], references: [id])
+  Team_MatchToTeam           Team[]    @relation("MatchToTeam")
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Team {
+  id                          Int     @id
+  acronym                     String
+  image_url                   String
+  location                    String?
+  name                        String
+  slug                        String
+  Bet                         Bet[]
+  Match_Match_winner_idToTeam Match[] @relation("Match_winner_idToTeam")
+  Match_MatchToTeam           Match[] @relation("MatchToTeam")
 }
 
 model VerificationToken {
@@ -131,4 +117,11 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum Status {
+  not_started
+  running
+  finished
+  canceled
 }

@@ -1,40 +1,30 @@
 {
-  "name": "lolbets",
-  "version": "0.1.0",
-  "private": true,
+  "name": "lolbets-solid",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "solid-start dev",
+    "build": "solid-start build",
+    "start": "solid-start start"
+  },
+  "type": "module",
+  "devDependencies": {
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.29",
+    "prisma": "^5.2.0",
+    "solid-start-node": "^0.3.4",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9"
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^1.0.1",
-    "@prisma/client": "5.2.0",
-    "@tanstack/react-query": "^4.33.0",
-    "@tanstack/react-query-devtools": "^4.33.0",
-    "@types/node": "20.5.7",
-    "@types/react": "18.2.21",
-    "@types/react-dom": "18.2.7",
-    "autoprefixer": "10.4.15",
-    "dayjs": "^1.11.9",
-    "dotenv": "^16.3.1",
-    "eslint": "8.48.0",
-    "eslint-config-next": "13.4.19",
-    "fuse.js": "^6.6.2",
-    "lucide-react": "^0.270.0",
-    "next": "13.4.19",
-    "next-auth": "^4.23.1",
-    "postcss": "8.4.28",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "sharp": "^0.32.5",
-    "tailwind-merge": "^1.14.0",
-    "tailwindcss": "3.3.3",
-    "typescript": "5.2.2",
-    "zod": "^3.22.2"
+    "@prisma/client": "^5.2.0",
+    "@solidjs/meta": "^0.28.6",
+    "@solidjs/router": "^0.8.3",
+    "solid-icons": "^1.0.11",
+    "solid-js": "^1.7.11",
+    "solid-start": "^0.3.4",
+    "tailwind-merge": "^1.14.0"
   },
-  "devDependencies": {
-    "prisma": "^5.2.0"
+  "engines": {
+    "node": "18"
   }
 }

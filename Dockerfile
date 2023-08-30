@@ -1,30 +1,25 @@
-	# Dockerfile for Next.js 13 App
-	 
-	# Specify a base image
-	FROM node:18.4-alpine
-	 
-	# Set the working directory
-	WORKDIR /app
-	 
-	# Copy the package.json and package-lock.json
-	COPY package*.json ./
-	 
-	# Install dependencies
-	RUN npm install
-	 
-	# Copy the source code
-	COPY . .
-	 
-	# Expose port 3000
-	EXPOSE 3000
-	 
-	# Set environment variables
-	ENV NODE_ENV production
-	ENV PORT 3000
-	 
-	# Run the app
-	CMD ["npm", "run", "start"]
-	 
-	# Add labels
-	LABEL maintainer="Your Name"
-	LABEL version="1.0"
+# Use the official Node.js image as base
+FROM node:18
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
+COPY prisma ./prisma/
+
+# Install project dependencies
+RUN npm install
+
+# Copy the rest of the application code to the container
+COPY . .
+
+# Build the Nuxt 3 project
+RUN npm run build
+RUN npx prisma generate
+
+# Expose the port that the application will run on
+EXPOSE 3000
+
+# Command to start the Nuxt 3 application
+CMD [ "npm", "run", "start" ]

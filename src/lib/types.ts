@@ -10,3 +10,11 @@ export type MatchesOrdered = ({
         bets: Bet[]
     })[]
 })[]
+
+export enum LeaguesTracked {
+    LFL = "LFL",
+    LEC = "LEC",
+    LCK = "LCK",
+    LPL = "LPL",
+    EUM = "EMEA Masters"
+}

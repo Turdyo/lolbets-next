@@ -14,6 +14,12 @@ dependencies:
   '@solidjs/router':
     specifier: ^0.8.3
     version: 0.8.3(solid-js@1.7.11)
+  dayjs:
+    specifier: ^1.11.9
+    version: 1.11.9
+  fuse.js:
+    specifier: ^6.6.2
+    version: 6.6.2
   solid-icons:
     specifier: ^1.0.11
     version: 1.0.11(solid-js@1.7.11)
@@ -21,8 +27,8 @@ dependencies:
     specifier: ^1.7.11
     version: 1.7.11
   solid-start:
-    specifier: ^0.3.4
-    version: 0.3.4(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-node@0.3.4)(vite@4.4.9)
+    specifier: ^0.3.5
+    version: 0.3.5(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-node@0.3.5)(vite@4.4.9)
   tailwind-merge:
     specifier: ^1.14.0
     version: 1.14.0
@@ -38,8 +44,8 @@ devDependencies:
     specifier: ^5.2.0
     version: 5.2.0
   solid-start-node:
-    specifier: ^0.3.4
-    version: 0.3.4(solid-start@0.3.4)(vite@4.4.9)
+    specifier: ^0.3.5
+    version: 0.3.5(solid-start@0.3.5)(vite@4.4.9)
   tailwindcss:
     specifier: ^3.3.3
     version: 3.3.3
@@ -88,7 +94,7 @@ packages:
       '@babel/helper-compilation-targets': 7.22.10
       '@babel/helper-module-transforms': 7.22.9(@babel/core@7.22.11)
       '@babel/helpers': 7.22.11
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/template': 7.22.5
       '@babel/traverse': 7.22.11
       '@babel/types': 7.22.11
@@ -309,8 +315,8 @@ packages:
       chalk: 2.4.2
       js-tokens: 4.0.0
 
-  /@babel/parser@7.22.13:
-    resolution: {integrity: sha512-3l6+4YOvc9wx7VlCSw4yQfcBo01ECA8TicQfbnCPuCEpRQrf+gTUyGdxNw+pyTUyywp6JRD1w0YQs9TpBXYlkw==}
+  /@babel/parser@7.22.14:
+    resolution: {integrity: sha512-1KucTHgOvaw/LzCVrEOAyXkr9rQlp0A1HiHRYnSUE9dmb8PvPW7o5sscg+5169r54n3vGlbx6GevTE/Iw/P3AQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
@@ -1009,8 +1015,8 @@ packages:
       '@babel/helper-create-regexp-features-plugin': 7.22.9(@babel/core@7.22.11)
       '@babel/helper-plugin-utils': 7.22.5
 
-  /@babel/preset-env@7.22.10(@babel/core@7.22.11):
-    resolution: {integrity: sha512-riHpLb1drNkpLlocmSyEg4oYJIQFeXAK/d7rI6mbD0XsvoTOOweXDmQPG/ErxsEhWk3rl3Q/3F6RFQlVFS8m0A==}
+  /@babel/preset-env@7.22.14(@babel/core@7.22.11):
+    resolution: {integrity: sha512-daodMIoVo+ol/g+//c/AH+szBkFj4STQUikvBijRGL72Ph+w+AMTSh55DUETe8KJlPlDT1k/mp7NBfOuiWmoig==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -1136,7 +1142,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.22.13
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/types': 7.22.11
 
   /@babel/traverse@7.22.11:
@@ -1149,7 +1155,7 @@ packages:
       '@babel/helper-function-name': 7.22.5
       '@babel/helper-hoist-variables': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.6
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/types': 7.22.11
       debug: 4.3.4
       globals: 11.12.0
@@ -1686,7 +1692,7 @@ packages:
   /@types/babel__core@7.20.1:
     resolution: {integrity: sha512-aACu/U/omhdk15O4Nfb+fHgH/z3QsfQzpnvRZhYhThms83ZnAOZz7zZAWO7mn2yyNQaA4xTO8GLK3uqFU4bYYw==}
     dependencies:
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/types': 7.22.11
       '@types/babel__generator': 7.6.4
       '@types/babel__template': 7.4.1
@@ -1700,7 +1706,7 @@ packages:
   /@types/babel__template@7.4.1:
     resolution: {integrity: sha512-azBFKemX6kMg5Io+/rdGT0dkGreboUVR0Cdm3fz9QJWpaQGJRQXl7C+6hOTCZcMll7KFyEQpgbYI2lHdsS4U7g==}
     dependencies:
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/types': 7.22.11
 
   /@types/babel__traverse@7.20.1:
@@ -1777,7 +1783,7 @@ packages:
     dependencies:
       browserslist: 4.21.10
       caniuse-lite: 1.0.30001524
-      fraction.js: 4.3.0
+      fraction.js: 4.3.2
       normalize-range: 0.1.2
       picocolors: 1.0.0
       postcss: 8.4.29
@@ -2038,6 +2044,10 @@ packages:
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
 
+  /dayjs@1.11.9:
+    resolution: {integrity: sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==}
+    dev: false
+
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
     peerDependencies:
@@ -2286,8 +2296,8 @@ packages:
     dependencies:
       debug: 4.3.4
 
-  /fraction.js@4.3.0:
-    resolution: {integrity: sha512-btalnXjFelOv2cy86KzHWhUuMb622/AD8ce/MCH9C36xe7QRXjJZA+19fP+G5LT0fdRcbOHErMI3SPM11ZaVDg==}
+  /fraction.js@4.3.2:
+    resolution: {integrity: sha512-9VLF466MqX1OUP7/d9r7/Vsvu6Hpp+taXBLmiR5x6mEYfT0BDkGVBt5TyA1aDu1WzIE1sF8F66evOFaz7iAEGQ==}
     dev: true
 
   /fs-extra@11.1.1:
@@ -2310,6 +2320,11 @@ packages:
 
   /function-bind@1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
+
+  /fuse.js@6.6.2:
+    resolution: {integrity: sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==}
+    engines: {node: '>=10'}
+    dev: false
 
   /gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
@@ -3019,8 +3034,8 @@ packages:
       '@babel/types': 7.22.11
       solid-js: 1.7.11
 
-  /solid-start-node@0.3.4(solid-start@0.3.4)(vite@4.4.9):
-    resolution: {integrity: sha512-8hm3lsaJEA+fgoJHjUJ1fSM9yTVo+jv1MwI0q2WqLObax/xMnLBrrN1vYtDIGwoVBhslS8qIGnEvHttOzkjUVg==}
+  /solid-start-node@0.3.5(solid-start@0.3.5)(vite@4.4.9):
+    resolution: {integrity: sha512-1nvPnxbUuMfhJiILBPln7g+EJUJYz9KRCZS096XVWDz7/pX6PhBzcIxWEZdaCfPdLGWbY97oib/jdKyPLoSaBQ==}
     peerDependencies:
       solid-start: '*'
       vite: '*'
@@ -3032,14 +3047,14 @@ packages:
       polka: 1.0.0-next.22
       rollup: 3.28.1
       sirv: 2.0.3
-      solid-start: 0.3.4(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-node@0.3.4)(vite@4.4.9)
+      solid-start: 0.3.5(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-node@0.3.5)(vite@4.4.9)
       terser: 5.19.3
       vite: 4.4.9
     transitivePeerDependencies:
       - supports-color
 
-  /solid-start@0.3.4(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-node@0.3.4)(vite@4.4.9):
-    resolution: {integrity: sha512-rgtJboxzqaXmLTYV6AwzYk2QMImPviPk9yIA8fVP/UvsZwwdMEfSprqYR+81dR+QZvOrJNckWleesQApdOYM6A==}
+  /solid-start@0.3.5(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-node@0.3.5)(vite@4.4.9):
+    resolution: {integrity: sha512-6w7OMv7MkiwvKC2XGw7UuVcvo6jzXt7FG5sRS56AIjnfCl3lP3ERU2IK68FEDmft8ROgYsijD3oHjeNJ/3/4CA==}
     hasBin: true
     peerDependencies:
       '@solidjs/meta': ^0.28.0
@@ -3075,7 +3090,7 @@ packages:
       '@babel/core': 7.22.11
       '@babel/generator': 7.22.10
       '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.22.11)
-      '@babel/preset-env': 7.22.10(@babel/core@7.22.11)
+      '@babel/preset-env': 7.22.14(@babel/core@7.22.11)
       '@babel/preset-typescript': 7.22.11(@babel/core@7.22.11)
       '@babel/template': 7.22.5
       '@solidjs/meta': 0.28.6(solid-js@1.7.11)
@@ -3103,7 +3118,7 @@ packages:
       set-cookie-parser: 2.6.0
       sirv: 2.0.3
       solid-js: 1.7.11
-      solid-start-node: 0.3.4(solid-start@0.3.4)(vite@4.4.9)
+      solid-start-node: 0.3.5(solid-start@0.3.5)(vite@4.4.9)
       terser: 5.19.3
       undici: 5.23.0
       vite: 4.4.9

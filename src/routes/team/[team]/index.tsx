@@ -1,4 +1,4 @@
-import { Show } from "solid-js"
+import { Show, createMemo } from "solid-js"
 import { RouteDataArgs, refetchRouteData, useRouteData } from "solid-start"
 import { createServerData$ } from "solid-start/server"
 import { Matches } from "~/components/Matches"
@@ -37,6 +37,7 @@ export function routeData({ params }: RouteDataArgs) {
 
 export default function Page() {
   const { team, winrates } = useRouteData<typeof routeData>()
+  const matches = () => team()?.match
 
   return (
     <Show when={team()} fallback={<div>No team found</div>} >
@@ -46,13 +47,9 @@ export default function Page() {
             <img src={team()?.image_url} width={70} height={70} alt={team()?.name} />
             <h2 class="text-lg font-bold text-custom-yellow-100">{team()?.name}</h2>
           </div>
-          <Show when={winrates.state === "ready"}>
-            <TeamWinrate data={winrates()!} />
-          </Show>
+          <TeamWinrate data={winrates()} />
         </div>
-        <Show when={team.state === "ready"}>
-          <Matches matches={team()?.match} mode="team" team_id={team()?.id!} class="w-full p-2 h-full overflow-auto" />
-        </Show>
+        <Matches matches={matches()} mode="team" team_id={team()?.id!} class="w-full p-2 h-full overflow-auto" />
       </div>
     </Show>
   )

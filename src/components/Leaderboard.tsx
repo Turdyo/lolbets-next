@@ -1,15 +1,15 @@
 import { User } from "@prisma/client";
-import { For } from "solid-js";
+import { For, Resource } from "solid-js";
 import { twMerge } from "tailwind-merge";
 
 interface LeaderboardProps {
   class?: string
-  users?: Pick<User, "image" | "name" | "points">[]
+  users: Pick<User, "image" | "name" | "points">[] | undefined
 }
 
 export function Leaderboard(props: LeaderboardProps) {
   return <div class={twMerge("h-full flex flex-col gap-2 overflow-auto", props.class)} >
-    <For each={props.users}>
+    <For each={props.users} fallback={<div>No users</div>}>
       {(user, index) => <div class={twMerge("border w-full border-gray-700 rounded-lg flex gap-4 items-center justify-between p-4")}>
         <div class="flex items-center gap-4">
           <span class="text-custom-white-200 font-semibold">{index() + 1}</span>

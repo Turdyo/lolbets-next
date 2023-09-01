@@ -1,5 +1,4 @@
-import { Show } from "solid-js";
-import { RouteDataArgs, refetchRouteData, useRouteData } from "solid-start";
+import { RouteDataArgs, useRouteData } from "solid-start";
 import { createServerData$ } from "solid-start/server";
 import { Matches } from "~/components/Matches";
 import { db } from "~/db/prisma";
@@ -18,15 +17,16 @@ export function routeData({ params }: RouteDataArgs) {
       opponents: true,
       bets: true,
       games: true
-    }
+    },
+    orderBy: {
+      scheduled_at: "asc"
+    },
   }), { key: () => [params.league] })
 }
 
 export default function Page() {
   const matches = useRouteData<typeof routeData>()
   return <div class=" w-full h-full overflow-auto">
-    <Show when={matches.state === "ready"}>
       <Matches matches={matches()} mode="league" class="h-full w-full max-w-5xl m-auto" />
-    </Show>
   </div>
 }

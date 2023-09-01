@@ -2,7 +2,8 @@ import { Match } from "@prisma/client";
 import dayjs from "dayjs";
 import { MatchesOrdered } from "./types";
 
-export function getMatchesOrdered<T>(matches: (Match & T)[]) {
+export function getMatchesOrdered<T>(matches: (Match & T)[] | undefined) {
+  if (!matches) return []
   return matches
     .map(match => match.scheduled_at)
     .reduce((unique: Date[], day) => unique

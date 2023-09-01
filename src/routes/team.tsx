@@ -1,6 +1,5 @@
-import { Team } from "@prisma/client"
 import Fuse from "fuse.js"
-import { For, Show, createEffect, createSignal } from "solid-js"
+import { For, Show, createSignal } from "solid-js"
 import { A, Outlet, useRouteData } from "solid-start"
 import { createServerData$ } from "solid-start/server"
 import { twMerge } from "tailwind-merge"
@@ -22,18 +21,9 @@ export function routeData() {
 export default function Layout() {
   const teams = useRouteData<typeof routeData>()
   const [focused, setFocused] = createSignal<boolean>(false)
-  const [results, setResults] = createSignal<Pick<Team, "acronym" | "name" | "image_url">[]>([])
   const [searchInput, setSearchInput] = createSignal<string>("")
   const fuse = new Fuse(teams() ?? [], { keys: ["acronym", "name"] })
-
-  createEffect(() => {
-    if (searchInput() === "") {
-      setResults(teams() ?? [])
-    } else {
-      const fuseResults = fuse.search(searchInput())
-      setResults(fuseResults.map(result => result.item))
-    }
-  })
+  const results = () => searchInput() === "" ? teams() : fuse.search(searchInput()).map(result => result.item)
 
   return <div class="p-14 flex flex-col justify-evenly h-full w-full">
     <div class="relative self-center">

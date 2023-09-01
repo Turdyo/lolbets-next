@@ -1,7 +1,7 @@
 import { JSX, ParentProps, mergeProps } from "solid-js";
 import { A, useLocation } from "solid-start";
 import { twMerge } from "tailwind-merge";
-import { AiOutlineTeam, AiOutlineTrophy, AiOutlineUser } from 'solid-icons/ai'
+import { AiOutlineTrophy, AiOutlineUser } from 'solid-icons/ai'
 
 export function Sidebar() {
   return <div class='bg-custom-blue-200 flex flex-col w-16 shrink-0 justify-between hover:w-64 transition-all group'>
@@ -23,7 +23,6 @@ function Logo() {
 
 function Navbar() {
   const location = useLocation()
-  location.pathname
   return <div class='flex flex-col gap-4 m-2 mt-10 justify-center'>
     <NavbarElement href="/league" icon={<AiOutlineTrophy fill="#a3a3a3" size={24} />} selected={location.pathname.includes("league")}>
       Leagues

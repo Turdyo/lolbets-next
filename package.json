@@ -7,7 +7,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@types/node": "^20.5.7",
+    "@types/node": "^20.5.9",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.29",
     "prisma": "^5.2.0",
@@ -17,15 +17,19 @@
     "vite": "^4.4.9"
   },
   "dependencies": {
+    "@lucia-auth/adapter-prisma": "^3.0.1",
+    "@lucia-auth/oauth": "^3.0.0",
     "@prisma/client": "^5.2.0",
     "@solidjs/meta": "^0.28.6",
     "@solidjs/router": "^0.8.3",
     "dayjs": "^1.11.9",
     "dotenv": "^16.3.1",
     "fuse.js": "^6.6.2",
+    "lucia": "^2.4.2",
     "solid-icons": "^1.0.11",
     "solid-js": "^1.7.11",
     "solid-start": "^0.3.5",
-    "tailwind-merge": "^1.14.0"
+    "tailwind-merge": "^1.14.0",
+    "zod": "^3.22.2"
   }
 }

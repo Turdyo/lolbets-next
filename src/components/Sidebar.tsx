@@ -9,7 +9,6 @@ export function Sidebar() {
       <Logo />
       <Navbar />
     </div>
-    <button class="p-2 bg-custom-purple-100">Login</button>
   </div>
 }
 

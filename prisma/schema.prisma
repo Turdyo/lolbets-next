@@ -73,62 +73,41 @@ model Bet {
   id     String @id @default(cuid())
   amount Int
 
-  match   Match  @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  match   Match   @relation(fields: [matchId], references: [id], onDelete: Cascade)
   matchId Int
-  team    Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  team    Team    @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId  Int
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String
+  user    User?   @relation(fields: [userId], references: [discordId], onDelete: Cascade)
+  userId  String?
 }
-
-// NEXTAUTH
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  discordId     String    @unique
-  points        Int       @default(500)
+  id        String @id @unique
+  discordId String @unique
+  name      String
+  image_url String
+  points    Int    @default(500)
+  bets      Bet[]
 
-  bets Bet[]
-
-  accounts Account[]
-  sessions Session[]
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
+  auth_session Session[]
+  key          Key[]
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id             String @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+model Key {
+  id              String  @id @unique
+  hashed_password String?
+  user_id         String
+  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
-  @@unique([identifier, token])
+  @@index([user_id])
 }

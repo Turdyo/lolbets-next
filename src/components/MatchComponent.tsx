@@ -49,7 +49,7 @@ export function MatchComponent(props: PropsClass<MatchProps>) {
         window.open(stream_url(), "_blank")
       }}>Live{` - ${stream_url().split('/').at(-1)}`}</div>
     </Show>
-    <A href={`/team/${team1()?.name}`}>
+    <A href={`/lolbets/team/${team1()?.name}`}>
       <img
         alt={team1()?.name ?? "TBD"}
         src={team1()?.image_url ?? "/team-tbd.png"}
@@ -97,7 +97,7 @@ export function MatchComponent(props: PropsClass<MatchProps>) {
         />
       </div>}
     </div>
-    <A href={`/team/${team2()?.name}`}>
+    <A href={`/lolbets/team/${team2()?.name}`}>
       <img
         alt={team2()?.name ?? "TBD"}
         src={team2()?.image_url ?? "/team-tbd.png"}

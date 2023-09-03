@@ -26,7 +26,7 @@ export default function Page() {
   return <div class="flex m-20 gap-6 flex-wrap justify-center h-min">
     <For each={leagues()} fallback={<div>No league</div>}>
       {(league) => <A
-        href={`/league/${league.name.toLowerCase()}`}
+        href={`/lolbets/league/${league.name.toLowerCase()}`}
         class="py-1 px-6 flex items-center w-80 h-36 rounded-xl bg-custom-blue-200 border border-gray-600 border-opacity-60 hover:border-opacity-100 transition-all cursor-pointer text-custom-white-200"
       >
         <img alt="icon" src={league.image_url!} width={100} height={100} />

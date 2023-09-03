@@ -9,6 +9,7 @@ declare namespace Lucia {
     name: string
     image_url: string
     points?: number
+    isAdmin?: boolean
     // bets: Bet[]
   };
   type DatabaseSessionAttributes = {};

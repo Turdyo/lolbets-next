@@ -1,14 +1,36 @@
-import { JSX, ParentProps, mergeProps } from "solid-js";
+import { JSX, ParentProps, Show, mergeProps } from "solid-js";
 import { A, useLocation } from "solid-start";
 import { twMerge } from "tailwind-merge";
-import { AiOutlineTrophy, AiOutlineUser } from 'solid-icons/ai'
+import { AiOutlineLock, AiOutlineLogin, AiOutlineTrophy, AiOutlineUser } from 'solid-icons/ai'
+import { User } from "lucia";
+import { logoutAction$ } from "~/lib/server";
 
-export function Sidebar() {
-  return <div class='bg-custom-blue-200 flex flex-col w-16 shrink-0 justify-between hover:w-64 transition-all group'>
+export function Sidebar(props: { user: User | undefined }) {
+  const user = () => props.user
+  const [logging, logout] = logoutAction$()
+  return <div class='bg-custom-blue-200 flex flex-col w-16 shrink-0 justify-between hover:w-64 transition-all group z-10'>
     <div>
       <Logo />
-      <Navbar />
+      <Navbar user={user()} />
     </div>
+    <Show when={user()} fallback={<div class="p-2 bg-custom-blue-300 flex items-center transition-all">
+      <a href="/api/login/discord" class="rounded-lg w-min border border-custom-purple-text text-custom-purple-text p-[10px] opacity-100 block group-hover:opacity-0 group-hover:hidden transition-all"><AiOutlineLogin fill="#a3a3a3" size={24} /></a>
+      <a href="/api/login/discord" class="rounded-lg border border-custom-purple-text text-custom-purple-text p-[10px] opacity-0 hidden group-hover:opacity-100 group-hover:block transition-all m-auto whitespace-nowrap">Login via discord</a>
+    </div>}>
+      <div class="flex gap-2 p-2 bg-custom-blue-300 transition-all">
+        <img src={user()?.image_url} width={48} height={48} class="rounded-full" alt={user()?.name} />
+        <div class="justify-between w-full opacity-0 hidden group-hover:opacity-100 group-hover:flex transition-all">
+          <div class="flex flex-col" >
+            <span class="font-bold text-custom-white-100">{user()?.name!}</span>
+            <span class="flex gap-2">
+              <span class="font-bold text-custom-yellow-100">{user()?.points}</span>
+              <img src={"/lolbets-logo.png"} alt="Logo" width={24} />
+            </span>
+          </div>
+          <button onClick={() => logout()} class="border-custom-purple-text text-custom-purple-text p-[10px] border rounded-lg">Logout</button>
+        </div>
+      </div>
+    </Show>
   </div>
 }
 
@@ -20,15 +42,20 @@ function Logo() {
   </A>
 }
 
-function Navbar() {
+function Navbar(props: { user: User | undefined }) {
   const location = useLocation()
   return <div class='flex flex-col gap-4 m-2 mt-10 justify-center'>
-    <NavbarElement href="/league" icon={<AiOutlineTrophy fill="#a3a3a3" size={24} />} selected={location.pathname.includes("league")}>
+    <NavbarElement href="/lolbets/league" icon={<AiOutlineTrophy fill="#a3a3a3" size={24} />} selected={location.pathname.includes("league")}>
       Leagues
     </NavbarElement>
-    <NavbarElement href="/team" icon={<AiOutlineUser fill="#a3a3a3" size={24} />} selected={location.pathname.includes("team")}>
+    <NavbarElement href="/lolbets/team" icon={<AiOutlineUser fill="#a3a3a3" size={24} />} selected={location.pathname.includes("team")}>
       Teams
     </NavbarElement>
+    <Show when={props.user?.isAdmin}>
+      <NavbarElement href="/lolbets/admin" icon={<AiOutlineLock fill="#a3a3a3" size={24} />} selected={location.pathname.includes("admin")}>
+        Admin
+      </NavbarElement>
+    </Show>
   </div>
 }
 

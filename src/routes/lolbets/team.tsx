@@ -41,7 +41,7 @@ export default function Layout() {
       <Show when={focused()}>
         <div class="rounded-xl rounded-t-none max-h-[400px] h-min overflow-auto bg-custom-blue-200 border border-gray-700 border-t-0 absolute w-[500px] z-10">
           <For each={results()}>
-            {(result) => <A href={`/team/${result.name}`} class="flex gap-2 p-3 items-center hover:bg-custom-blue-500">
+            {(result) => <A href={`/lolbets/team/${result.name}`} class="flex gap-2 p-3 items-center hover:bg-custom-blue-500">
               <img alt={result.name} src={result.image_url} height={24} width={24} />
               <span>{result.name}</span>
             </A>}

@@ -35,7 +35,7 @@ interface TeamWinrateElementProps {
 
 function TeamWinrateElement(props: TeamWinrateElementProps) {
   return <div class={"flex justify-between gap-6 items-center text-custom-white-200 whitespace-nowrap"}>
-    <A href={`/team/${props.opponent.name}`} class="flex items-center gap-2 text-sm font-semibold text-custom-yellow-100">
+    <A href={`/lolbets/team/${props.opponent.name}`} class="flex items-center gap-2 text-sm font-semibold text-custom-yellow-100">
       <img alt={props.opponent.acronym} src={props.opponent.image_url} width={32} height={32} />
       {props.opponent.acronym}
     </A>

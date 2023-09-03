@@ -8,10 +8,11 @@ datasource db {
 }
 
 model League {
-  id        Int     @id
+  id        Int      @id
   image_url String?
   name      String
   slug      String
+  isCustom  Boolean? @default(false)
   match     Match[]
 }
 
@@ -51,14 +52,15 @@ model Game {
 }
 
 model Team {
-  id        Int     @id
+  id        Int      @id
+  isCustom  Boolean? @default(false)
   acronym   String
   image_url String
   location  String?
-  name      String  @unique
+  name      String   @unique
   slug      String
   match     Match[]
-  match_won Match[] @relation(name: "winner")
+  match_won Match[]  @relation(name: "winner")
   bets      Bet[]
 }
 
@@ -82,11 +84,12 @@ model Bet {
 }
 
 model User {
-  id        String @id @unique
-  discordId String @unique
+  id        String   @id @unique
+  discordId String   @unique
   name      String
   image_url String
-  points    Int    @default(500)
+  points    Int      @default(500)
+  isAdmin   Boolean? @default(false)
   bets      Bet[]
 
   auth_session Session[]

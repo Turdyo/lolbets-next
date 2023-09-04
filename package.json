@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "solid-start dev",
     "build": "solid-start build",
-    "start": "solid-start start"
+    "start": "solid-start start",
+    "postinstall": "npx prisma generate"
   },
   "type": "module",
   "devDependencies": {
@@ -29,7 +30,6 @@
     "solid-icons": "^1.0.11",
     "solid-js": "^1.7.11",
     "solid-start": "^0.3.5",
-    "solid-start-vercel": "^0.3.5",
     "solid-toast": "^0.5.0",
     "tailwind-merge": "^1.14.0",
     "zod": "^3.22.2"

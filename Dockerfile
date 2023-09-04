@@ -14,10 +14,10 @@ RUN npm install
 # Copy the rest of the application code to the container
 COPY . .
 
+RUN npx prisma generate
 # Build the Nuxt 3 project
 RUN npm run build
 # RUN npx prisma generate
-RUN npx prisma generate
 # Expose the port that the application will run on
 EXPOSE 3000
 

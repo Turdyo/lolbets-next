@@ -12,7 +12,6 @@ import {
   Title,
 } from "solid-start";
 import "./root.css";
-import { Sidebar } from "./components/Sidebar";
 
 export default function Root() {
   return (
@@ -25,12 +24,9 @@ export default function Root() {
       <Body class="bg-custom-blue-100">
         <Suspense>
           <ErrorBoundary>
-            {/* <div class="flex h-screen bg-custom-blue-100">
-              <Sidebar /> */}
-              <Routes>
-                <FileRoutes />
-              </Routes>
-            {/* </div> */}
+            <Routes>
+              <FileRoutes />
+            </Routes>
           </ErrorBoundary>
         </Suspense>
         <Scripts />

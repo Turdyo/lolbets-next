@@ -18,9 +18,10 @@ COPY . .
 # Build the Nuxt 3 project
 RUN npm run build
 RUN npx prisma generate
+RUN node .\fix.cjs
 
 # Expose the port that the application will run on
 EXPOSE 3000
 
 # Command to start the Nuxt 3 application
-# CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "start" ]

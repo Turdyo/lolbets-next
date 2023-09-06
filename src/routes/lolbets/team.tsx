@@ -22,8 +22,8 @@ export default function Layout() {
   const teams = useRouteData<typeof routeData>()
   const [focused, setFocused] = createSignal<boolean>(false)
   const [searchInput, setSearchInput] = createSignal<string>("")
-  const fuse = new Fuse(teams() ?? [], { keys: ["acronym", "name"] })
-  const results = () => searchInput() === "" ? teams() : fuse.search(searchInput()).map(result => result.item)
+  const fuse = () => new Fuse(teams() ?? [], { keys: ["acronym", "name"] })
+  const results = () => searchInput() === "" ? teams() : fuse().search(searchInput()).map(result => result.item)
 
   return <div class="p-14 flex flex-col justify-evenly h-full w-full">
     <div class="relative self-center">

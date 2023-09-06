@@ -20,6 +20,7 @@ RUN npm run build
 RUN npx prisma generate
 RUN node fix.cjs
 
+
 # Expose the port that the application will run on
 EXPOSE 3000
 

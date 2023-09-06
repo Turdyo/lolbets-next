@@ -1,5 +1,5 @@
-import { Status } from "@prisma/client"
 import "dotenv/config"
+import { Status } from "./types"
 
 export interface MatchResponse {
     begin_at: string

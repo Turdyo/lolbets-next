@@ -1,10 +1,9 @@
-import { Status } from "@prisma/client";
 import { Show, createSignal } from "solid-js";
 import { createServerAction$, json } from "solid-start/server";
 import { twMerge } from "tailwind-merge";
 import { db } from "~/db/prisma";
 import { auth } from "~/lib/lucia";
-import { PropsClass } from "~/lib/types";
+import { PropsClass, Status } from "~/lib/types";
 
 type BetProps = {
   matchId: number

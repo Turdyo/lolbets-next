@@ -18,3 +18,5 @@ export enum LeaguesTracked {
     LPL = "LPL",
     EUM = "EMEA Masters"
 }
+
+export type Status = "not_started" | "running" | "finished" | "canceled"

@@ -1,4 +1,4 @@
-import { Bet, Game, Match, Status, Team } from "@prisma/client"
+import { Bet, Game, Match, Team } from "@prisma/client"
 import dayjs from "dayjs"
 import { A } from "solid-start"
 import { twMerge } from "tailwind-merge"
@@ -22,9 +22,9 @@ export function MatchComponent(props: PropsClass<MatchProps>) {
   const areTeamsDefined = () => team1() && team2()
   const team1Score = () => match().games.filter(game => game.winner_id === team1()?.id).length
   const team2Score = () => match().games.filter(game => game.winner_id === team2()?.id).length
-  const isFinished = () => match().status === Status.finished
-  const isRunning = () => match().status === Status.running
-  const isNotStarted = () => match().status === Status.not_started
+  const isFinished = () => match().status === "finished"
+  const isRunning = () => match().status === "running"
+  const isNotStarted = () => match().status === "not_started"
   const hasBets = () => match().bets.length !== 0
   const team1Bets = () => match().bets.filter(bet => bet.teamId === team1()?.id)
   const team2Bets = () => match().bets.filter(bet => bet.teamId === team2()?.id)

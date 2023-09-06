@@ -23,4 +23,4 @@ RUN npx prisma generate
 EXPOSE 3000
 
 # Command to start the Nuxt 3 application
-CMD [ "npm", "run", "start" ]
+# CMD [ "npm", "run", "start" ]

@@ -18,6 +18,7 @@ COPY . .
 # Build the Nuxt 3 project
 RUN npm run build
 RUN npx prisma generate
+RUN mv ./dist/server.js ./dist/server.cjs
 
 # Expose the port that the application will run on
 EXPOSE 3000

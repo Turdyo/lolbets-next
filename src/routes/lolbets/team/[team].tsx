@@ -1,5 +1,5 @@
-import { Show, createMemo } from "solid-js"
-import { RouteDataArgs, refetchRouteData, useRouteData } from "solid-start"
+import { Show } from "solid-js"
+import { RouteDataArgs, useRouteData } from "solid-start"
 import { createServerData$ } from "solid-start/server"
 import { Matches } from "~/components/Matches"
 import { TeamWinrate } from "~/components/TeamWinrate"

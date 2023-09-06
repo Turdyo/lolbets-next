@@ -88,22 +88,22 @@ function BetInput(props: PropsClass<BetInputProps>) {
     })
 
     if (!match) {
-      return json({ error: "match does not exist" }, { status: 400, statusText: "Match does not exist" })
+      return json({ error: "Match does not exist" }, { status: 400, statusText: "Match does not exist" })
     }
     if (match.status !== "not_started") {
-      return json({ error: "match has already started" }, { status: 400, statusText: "Match has already started" })
+      return json({ error: "Match has already started" }, { status: 400, statusText: "Match has already started" })
     }
     const opponents = match.opponents.map(team => team.id)
     if (!opponents.includes(props.teamId)) {
-      return json({ error: "teamId not in match opponents" }, { status: 400, statusText: "TeamId not in match opponents" })
+      return json({ error: "TeamId not in match opponents" }, { status: 400, statusText: "TeamId not in match opponents" })
     }
     if (user().points! < props.value || props.value === 0) {
-      return json({ error: "not enough points or bet equals 0" }, { status: 400, statusText: "Not enough points or bet equals 0" })
+      return json({ error: "Not enough points or bet equals 0" }, { status: 400, statusText: "Not enough points or bet equals 0" })
     }
     const previousBet = match.bets.find(bet => bet.userId === user().discordId)
     if (previousBet) {
       if (previousBet.teamId !== props.teamId) {
-        return json({ error: "you have bet on the other team already" }, { status: 400, statusText: "You have bet on the other team already" })
+        return json({ error: "You have bet on the other team already" }, { status: 400, statusText: "You have bet on the other team already" })
       }
       await db.bet.update({
         where: {
@@ -157,9 +157,10 @@ function BetInput(props: PropsClass<BetInputProps>) {
         value: input(),
         matchId: props.matchId,
         teamId: props.teamId
-      }).then(resp => {
+      }).then(async (resp) => {
         if (resp?.ok === false) {
-          toast.error(resp?.statusText)
+          const json = await resp.json()
+          toast.error(json.error)
         } else {
           toast.success("Bet registered 🪙")
         }

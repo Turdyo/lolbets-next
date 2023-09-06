@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
-# COPY prisma ./prisma/
+COPY prisma ./prisma/
 
 # Install project dependencies
 RUN npm install -g npm@10.0.0
@@ -17,7 +17,7 @@ COPY . .
 
 # Build the Nuxt 3 project
 RUN npm run build
-# RUN npx prisma generate
+RUN npx prisma generate
 RUN node fix.cjs
 
 # Expose the port that the application will run on

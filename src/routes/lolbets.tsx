@@ -18,10 +18,6 @@ export default function Layout() {
       style: {
         background: '#1f2937',
         color: '#f3f4f6'
-      },
-      iconTheme: {
-        primary: '#38bdf8',
-        secondary: '#1f2937'
       }
     }} />
   </div>

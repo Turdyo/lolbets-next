@@ -1,4 +1,5 @@
 import Fuse from "fuse.js"
+import { AiOutlineSearch } from "solid-icons/ai"
 import { For, Show, createSignal } from "solid-js"
 import { A, Outlet, useRouteData } from "solid-start"
 import { createServerData$ } from "solid-start/server"
@@ -26,20 +27,23 @@ export default function Layout() {
   const results = () => searchInput() === "" ? teams() : fuse().search(searchInput()).map(result => result.item)
 
   return <div class="p-14 flex flex-col justify-evenly h-full w-full">
-    <div class="relative self-center">
-      <input
-        placeholder="Search..."
-        type="text"
-        class={twMerge("rounded-xl p-4 bg-custom-blue-200 w-[500px] focus:outline-none border border-gray-700", focused() ? "rounded-b-none border-b-0" : "")}
-        onInput={(event) => setSearchInput(event.target.value)}
-        onFocus={() => setFocused(true)}
-        onBlur={async () => {
-          await new Promise(r => setTimeout(r, 150))
-          setFocused(false)
-        }}
-      />
+    <div class={twMerge("relative self-center border border-gray-700 bg-custom-blue-200 rounded-xl", focused() ? "rounded-b-none" : "")}>
+      <div class="flex gap-2 items-center">
+        <input
+          placeholder="Search..."
+          type="text"
+          class={twMerge("rounded-xl p-4 w-[500px] bg-custom-blue-200 focus:outline-none")}
+          onInput={(event) => setSearchInput(event.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={async () => {
+            await new Promise(r => setTimeout(r, 150))
+            setFocused(false)
+          }}
+        />
+        <AiOutlineSearch size={24} fill={"#a3a3a3"} class="mr-4"/>
+      </div>
       <Show when={focused()}>
-        <div class="rounded-xl rounded-t-none max-h-[400px] h-min overflow-auto bg-custom-blue-200 border border-gray-700 border-t-0 absolute w-[500px] z-10">
+        <div class="rounded-xl rounded-t-none max-h-[400px] h-min overflow-auto bg-custom-blue-200 border-t-0 border-gray-700 border absolute w-[550px] -left-px z-10">
           <For each={results()}>
             {(result) => <A href={`/lolbets/team/${result.name}`} class="flex gap-2 p-3 items-center hover:bg-custom-blue-500">
               <img alt={result.name} src={result.image_url} height={24} width={24} />

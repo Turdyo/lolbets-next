@@ -18,7 +18,6 @@ COPY . .
 # Build the Nuxt 3 project
 RUN npm run build
 RUN npx prisma generate
-RUN node fix.cjs
 
 
 # Expose the port that the application will run on

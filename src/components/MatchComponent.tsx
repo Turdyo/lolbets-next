@@ -65,37 +65,39 @@ export function MatchComponent(props: PropsClass<MatchProps>) {
           <span class="text-sm">{dayjs(match().scheduled_at).format("HH:mm")}</span>
         </Show>
       </span>
-      {areTeamsDefined() && <div class="flex gap-6 text-custom-white-200 justify-center">
-        <MatchStats
-          color="#e84057"
-          nbBets={team1Bets().length}
-          totalAmount={team1BetsAmount()} />
-        <div>
-          {
-            (isRunning() || isFinished()) && <div class="font-extrabold text-2xl text-custom-white-200 flex flex-col items-center justify-center">
-              <div class="flex gap-2 items-center h-8">
-                <span class={match().winner_id === team1()?.id ? "text-custom-yellow-100" : "text-custom-white-200"}>{team1Score()}</span>
-                -
-                <span class={match().winner_id === team2()?.id ? "text-custom-yellow-100" : "text-custom-white-200"}>{team2Score()}</span>
+      <Show when={areTeamsDefined()}>
+        <div class="flex gap-6 text-custom-white-200 justify-center">
+          <MatchStats
+            color="#e84057"
+            nbBets={team1Bets().length}
+            totalAmount={team1BetsAmount()} />
+          <div>
+            <Show when={isRunning() || isFinished()}>
+              <div class="font-extrabold text-2xl text-custom-white-200 flex flex-col items-center justify-center">
+                <div class="flex gap-2 items-center h-8">
+                  <span class={match().winner_id === team1()?.id ? "text-custom-yellow-100" : "text-custom-white-200"}>{team1Score()}</span>
+                  -
+                  <span class={match().winner_id === team2()?.id ? "text-custom-yellow-100" : "text-custom-white-200"}>{team2Score()}</span>
+                </div>
               </div>
-            </div>
-          }
-          <BetSection
-            matchId={match().id}
-            team1Id={team1()!.id}
-            team2Id={team2()!.id}
-            status={match().status}
-            hasBets={hasBets()}
-            team1BetsPercent={team1BetsPercent()}
-            team2BetsPercent={team2BetsPercent()}
+            </Show>
+            <BetSection
+              matchId={match().id}
+              team1Id={team1()!.id}
+              team2Id={team2()!.id}
+              status={match().status}
+              hasBets={hasBets()}
+              team1BetsPercent={team1BetsPercent()}
+              team2BetsPercent={team2BetsPercent()}
+            />
+          </div>
+          <MatchStats
+            color="#5383e8"
+            nbBets={team2Bets().length}
+            totalAmount={team2BetsAmount()}
           />
         </div>
-        <MatchStats
-          color="#5383e8"
-          nbBets={team2Bets().length}
-          totalAmount={team2BetsAmount()}
-        />
-      </div>}
+      </Show>
     </div>
     <A href={`/lolbets/team/${team2()?.name}`}>
       <img

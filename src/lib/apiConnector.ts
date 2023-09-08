@@ -1,4 +1,3 @@
-import "dotenv/config"
 import { Status } from "./types"
 
 export interface MatchResponse {

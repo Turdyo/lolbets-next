@@ -34,7 +34,6 @@ export function MatchComponent(props: PropsClass<MatchProps>) {
   const team1BetsPercent = () => hasBets() ? (team1BetsAmount() / totalBets()) * 100 : 0
   const team2BetsPercent = () => hasBets() ? (team2BetsAmount() / totalBets()) * 100 : 0
   const stream_url = () => match().stream ?? "https://twitch.tv/otplol_"
-  const date = () => dayjs(match().scheduled_at).format("HH:mm")
 
   return <div class={twMerge(
     "p-2 px-4 w-full flex justify-between items-center border border-gray-700 rounded-lg whitespace-nowrap h-[134px] bg-custom-blue-200 relative",
@@ -63,7 +62,7 @@ export function MatchComponent(props: PropsClass<MatchProps>) {
       <span class="font-semibold text-custom-white-200 text-center flex flex-col">
         <span>{match().name} (BO{match().number_of_games})</span>
         <Show when={isNotStarted}>
-          <span class="text-sm">{date()}</span>
+          <span class="text-sm">{dayjs(match().scheduled_at).format("HH:mm")}</span>
         </Show>
       </span>
       <Show when={areTeamsDefined()}>

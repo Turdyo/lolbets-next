@@ -1,5 +1,5 @@
 # Use the official Node.js image as base
-FROM oven/bun
+FROM node:20.6.0-alpine
 
 # Set the working directory in the container
 WORKDIR /app
@@ -7,15 +7,15 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
 COPY prisma ./prisma/
-
+RUN npm i -g bun
 # Install project dependencies
-RUN bun install
+RUN bun i
 
 # Copy the rest of the application code to the container
 COPY . .
 
 # Build the Nuxt 3 project
-RUN bun run build
+RUN npm run build
 RUN bun x prisma generate
 
 

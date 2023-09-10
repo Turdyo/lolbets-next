@@ -62,7 +62,7 @@ export function MatchComponent(props: PropsClass<MatchProps>) {
       <span class="font-semibold text-custom-white-200 text-center flex flex-col">
         <span>{match().name} (BO{match().number_of_games})</span>
         <Show when={isNotStarted}>
-          <span class="text-sm">{dayjs(match().scheduled_at).format("HH:mm")}</span>
+          <span class="text-sm">{(() => dayjs(match().scheduled_at).format("HH:mm"))()}</span>
         </Show>
       </span>
       <Show when={areTeamsDefined()}>

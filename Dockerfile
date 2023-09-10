@@ -1,5 +1,5 @@
 # Use the official Node.js image as base
-FROM node:20.6.0-alpine
+FROM oven/bun
 
 # Set the working directory in the container
 WORKDIR /app
@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
 COPY prisma ./prisma/
-RUN npm i -g bun
+RUN bun i -g npm
 # Install project dependencies
 RUN bun i
 

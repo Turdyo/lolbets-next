@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
 COPY prisma ./prisma/
-RUN bun i -g npm
+# RUN bun i -g npm
 # Install project dependencies
 RUN bun i
 
@@ -15,7 +15,7 @@ RUN bun i
 COPY . .
 
 # Build the Nuxt 3 project
-RUN npm run build
+RUN bun run build
 RUN bun x prisma generate
 
 

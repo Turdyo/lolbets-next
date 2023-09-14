@@ -5,7 +5,8 @@ FROM oven/bun
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the container
-COPY package*.json ./
+COPY package.json ./
+COPY bun.lockb bun.lockb
 COPY prisma ./prisma/
 # RUN npm i -g bun
 # Install project dependencies
@@ -15,7 +16,7 @@ RUN bun i
 COPY . .
 
 # Build the Nuxt 3 project
-RUN bun run build
+RUN bun x solid-start build
 RUN bun x prisma generate
 
 

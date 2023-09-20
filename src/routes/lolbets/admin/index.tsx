@@ -15,10 +15,10 @@ export function routeData() {
     const authRequest = auth.handleRequest(event.request);
     const session = await authRequest.validate();
     if (!session || !session.user.isAdmin) {
-      return redirect("/lolbets") as never;
+      return redirect("/lolbets") as never
     }
-    return session.user;
-  });
+    return session.user
+  })
 
   const teams = createServerData$(() =>
     db.team.findMany({

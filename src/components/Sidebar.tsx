@@ -1,7 +1,7 @@
 import { JSX, ParentProps, Show, mergeProps } from "solid-js";
 import { A, useLocation } from "solid-start";
 import { twMerge } from "tailwind-merge";
-import { AiOutlineLock, AiOutlineLogin, AiOutlineTrophy, AiOutlineUser } from 'solid-icons/ai'
+import { AiOutlineLock, AiOutlineLogin, AiOutlineTeam, AiOutlineTrophy, AiOutlineUser } from 'solid-icons/ai'
 import { User } from "lucia";
 import { logoutAction$ } from "~/lib/server";
 
@@ -19,7 +19,7 @@ export function Sidebar(props: { user: User | undefined }) {
     </div>}>
       <div class="flex gap-2 p-2 bg-custom-blue-300 transition-all">
         <img src={user()?.image_url} width={48} height={48} class="rounded-full" alt={user()?.name} />
-        <div class="justify-between w-full opacity-0 hidden group-hover:opacity-100 group-hover:flex transition-all">
+        <div class="justify-between w-full opacity-0 hidden group-hover:opacity-100 group-hover:flex transition-opacity">
           <div class="flex flex-col" >
             <span class="font-bold text-custom-white-100">{user()?.name!}</span>
             <span class="flex gap-2">
@@ -48,7 +48,7 @@ function Navbar(props: { user: User | undefined }) {
     <NavbarElement href="/lolbets/league" icon={<AiOutlineTrophy fill="#a3a3a3" size={24} />} selected={location.pathname.includes("league")}>
       Leagues
     </NavbarElement>
-    <NavbarElement href="/lolbets/team" icon={<AiOutlineUser fill="#a3a3a3" size={24} />} selected={location.pathname.includes("team")}>
+    <NavbarElement href="/lolbets/team" icon={<AiOutlineTeam fill="#a3a3a3" size={24} />} selected={location.pathname.includes("team")}>
       Teams
     </NavbarElement>
     <Show when={props.user?.isAdmin}>

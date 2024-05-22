@@ -1,6 +1,8 @@
 import { distributeBets } from "@/lib/actions/bet"
 import { NextResponse } from "next/server"
 
+export const dynamic = "force-dynamic"
+
 export async function GET() {
 	console.log("distributing bets")
 	// const session = await auth()

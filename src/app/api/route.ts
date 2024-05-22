@@ -8,6 +8,8 @@ import { NextResponse } from "next/server"
 export const dynamic = "force-dynamic"
 
 export async function GET() {
+	console.log("updating matches")
+
 	const matches = await fetchMatches()
 
 	const leagues = matches.map((match) => match.league)

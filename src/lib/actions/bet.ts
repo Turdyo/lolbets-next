@@ -82,8 +82,6 @@ export async function bet({ amount, matchId, teamId }: { amount: number; matchId
 }
 
 export async function distributeBets() {
-	const session = await auth()
-	if (!session) return { error: "must be logged in" }
 
 	const matchesToDistribute = await db.match.findMany({
 		where: {

@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export function Socials() {
 	return (
-		<section className="text-sm flex justify-evenly">
+		<section className="text-sm flex justify-evenly items-center">
 			<Link target="_blank" href={"https://discord.gg/4esport"}>
 				<Image
 					src={

@@ -3,7 +3,7 @@ import { createOrUpdateGames } from "@/lib/game"
 import { createOrUpdateLeagues } from "@/lib/league"
 import { createOrUpdateMatches } from "@/lib/match"
 import { createOrUpdateTeams } from "@/lib/team"
-import { redirect } from "next/navigation"
+import { NextResponse } from "next/server"
 
 export const dynamic = "force-dynamic"
 
@@ -18,5 +18,5 @@ export async function GET() {
 	await createOrUpdateMatches(matches)
 	await createOrUpdateGames(games)
 
-	redirect("/")
+	return NextResponse.json({ response: "done" })
 }

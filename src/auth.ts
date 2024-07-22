@@ -4,6 +4,7 @@ import Discord, { type DiscordProfile } from "next-auth/providers/discord"
 import { db } from "./lib/prisma"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+	//@ts-ignore
 	adapter: PrismaAdapter(db),
 	providers: [
 		Discord({
